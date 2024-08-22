@@ -1,4 +1,3 @@
 ### VS Code ###
-EventOrganizerFront\.vscode
-
+.vscode/
 .idea/*
