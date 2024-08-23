@@ -1,0 +1,73 @@
+@startuml
+
+class user {
+    - id: INT <<PK>>
+    - created_at : TIMESTAMP
+    - updated_at : TIMESTAMP
+    + username: VARCHAR(50)
+    + email: VARCHAR(100)
+    + password_hash: VARCHAR(255)
+    + first_name: VARCHAR(50)
+    + last_name: VARCHAR(50)
+    + role : ENUM('user', 'admin')
+}
+
+class event {
+    - id: INT <<PK>>
+    - created_by: INT <<FK>>
+    - description: TEXT
+    - date: DATE
+    - time: TIME
+    - capacity: INT
+    - is_private: BOOLEAN
+    - created_at : TIMESTAMP
+    - updated_at : TIMESTAMP
+    + title: VARCHAR(100)
+    + location: VARCHAR(255)
+}
+
+class user_event {
+    - id: INT <<PK>>
+    - user_id: INT <<FK>>
+    - event_id: INT <<FK>>
+    - invited_at: TIMESTAMP
+    - responded_at: TIMESTAMP
+    + status: ENUM('invited', 'accepted', 'declined', 'canceled')
+}
+
+class notification {
+    - id: INT <<PK>>
+    - emitter_id: INT <<FK>>
+    - event_id: INT <<FK>>
+    - created_at : TIMESTAMP
+    - type: ENUM('invitation', 'reminder', 'update')
+}
+
+class notification_user {
+    - id: INT <<PK>>
+    - notification_id: INT <<FK>>
+    - receiver_id: INT <<FK>>
+    - is_read: BOOLEAN
+}
+
+class comment {
+    - id: INT <<PK>>
+    - event_id: INT <<FK>>
+    - author_id: INT <<FK>>
+    - content: TEXT
+    - created_at : TIMESTAMP
+    - updated_at : TIMESTAMP
+    + rating: INT(1-5)
+}
+
+user "1" -- "0..*" event : created_by
+comment "0..*" -- "1" event : evaluate
+comment "0..*" -- "1" user : author
+notification "0..*" -- "1" user : emitter
+notification "0..*" -- "1" event : push_information_about
+notification_user "0..*" -- "1" notification : materialized_by
+notification_user "0..*" -- "1" user : received_by
+user_event "0..*" -- "1" user : participates
+user_event "0..*" -- "1" event : concerns
+
+@enduml
