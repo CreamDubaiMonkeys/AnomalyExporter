@@ -1,23 +1,24 @@
 <div class="form-container">
     <div class="inscription-card">
     <h2>Créer un compte Event Organizer</h2>
-    <form>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
       <div class="form-group">
-        <input class="input-inscription" type="text" id="nom" name="nom" required placeholder="Nom">
+        <input class="input-inscription" type="text" id="nom" name="nom" ngModel required placeholder="Nom">
       </div>
       <div class="form-group">
-        <input class="input-inscription" type="text" id="prenom" name="prenom" required placeholder="Prénom">
+        <input class="input-inscription" type="text" id="prenom" name="prenom" ngModel required placeholder="Prénom">
       </div>
       <div class="form-group">
-        <input class="input-inscription" type="email" id="email" name="email" required placeholder="Adresse mail">
+        <input class="input-inscription" type="email" id="email" name="email" ngModel required placeholder="Adresse mail">
       </div>
       <div class="form-group">
-        <input class="input-inscription" type="password" id="password" name="password" required placeholder="Mot de passe">
+        <input class="input-inscription" type="password" id="password" name="password" ngModel required placeholder="Mot de passe">
       </div>
       <div class="form-group">
-        <input class="input-inscription" type="password" id="password" name="password" required placeholder="Confirmation mot de passe">
+        <input class="input-inscription" type="password" id="password" name="password" ngModel required placeholder="Confirmation mot de passe">
       </div>
-      <button type="submit" class="btn-inscription">Créer un compte</button>
+      <button class="btn btn-success" type="submit"  [disabled]="!loginForm.valid" >Créer un compte</button>
+      <p>Vous avez un compte ? <a [routerLink]="['/']">Connectez vous</a></p>
     </form>
     </div>
-  </div>
+  </div> 
