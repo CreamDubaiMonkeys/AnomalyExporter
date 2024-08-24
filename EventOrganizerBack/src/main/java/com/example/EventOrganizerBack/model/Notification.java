@@ -9,15 +9,7 @@ import java.util.List;
 @Entity
 public class Notification {
 
-    /*
-    class notification {
-    - id: INT <<PK>>
-    - emitter_id: INT <<FK>>
-    - event_id: INT <<FK>>
-    - created_at : TIMESTAMP
-    - type: ENUM('invitation', 'reminder', 'update')
-}
-    * */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -37,4 +29,51 @@ public class Notification {
 
     private NotificationType type;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public User getEmitter() {
+        return emitter;
+    }
+
+    public void setEmitter(User emitter) {
+        this.emitter = emitter;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    public List<NotificationUser> getNotificationUsers() {
+        return notificationUsers;
+    }
+
+    public void setNotificationUsers(List<NotificationUser> notificationUsers) {
+        this.notificationUsers = notificationUsers;
+    }
+
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
+    }
+
+    public NotificationType getType() {
+        return type;
+    }
+
+    public void setType(NotificationType type) {
+        this.type = type;
+    }
 }

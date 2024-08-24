@@ -8,14 +8,6 @@ import java.sql.Timestamp;
 @Entity
 public class UserEvent {
 
-    /*class user_event {
-    - id: INT <<PK>>
-    - user_id: INT <<FK>>
-    - event_id: INT <<FK>>
-    - invited_at: TIMESTAMP
-    - responded_at: TIMESTAMP
-    + status: ENUM('invited', 'accepted', 'declined', 'canceled')
-}*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -33,6 +25,51 @@ public class UserEvent {
     private Timestamp responded_at;
     private UserEventStatus status;
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+
+    public Timestamp getInvited_at() {
+        return invited_at;
+    }
+
+    public void setInvited_at(Timestamp invited_at) {
+        this.invited_at = invited_at;
+    }
+
+    public Timestamp getResponded_at() {
+        return responded_at;
+    }
+
+    public void setResponded_at(Timestamp responded_at) {
+        this.responded_at = responded_at;
+    }
+
+    public UserEventStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserEventStatus status) {
+        this.status = status;
+    }
 }
