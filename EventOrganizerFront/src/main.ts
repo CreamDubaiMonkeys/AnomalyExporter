@@ -6,5 +6,5 @@ import AppRoutingModule from './app/routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 bootstrapApplication(AppComponent, {
-  providers: [provideProtractorTestingSupport(), provideRouter(AppRoutingModule), provideAnimationsAsync()],
+  providers: [provideProtractorTestingSupport(), provideRouter(AppRoutingModule), provideAnimationsAsync(), provideAnimationsAsync()],
 }).catch((err) => console.error(err));
