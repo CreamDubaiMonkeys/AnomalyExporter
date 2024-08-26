@@ -1,0 +1,41 @@
+.login-container {
+    font-family: 'Snell Roundhand', cursive;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, rgb(16, 16, 16), white);
+  }
+  
+  .login-card {
+    background: white;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .form-group{
+    margin-bottom: 15px;
+  }
+
+  .btn-connexion {
+    background-color: #4CAF50; 
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+  }
+
+  .input-login {
+    height: 20px; 
+    width: 250px; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
