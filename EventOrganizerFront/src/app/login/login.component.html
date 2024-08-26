@@ -8,7 +8,7 @@
       <div class="form-group">
         <input class="input-login" type="password" id="password" name="password" ngModel required placeholder="Mot de passe">
       </div>
-      <button class="btn btn-success" type="submit" [disabled]="!loginForm.valid">Se connecter</button>
+      <button class="btn btn-outline-success" type="submit" [disabled]="!loginForm.valid">Se connecter</button>
     </form>
     <p>Vous n'avez pas de compte ? <a [routerLink]="['/inscription']">Créer un compte</a></p>
   </div>
