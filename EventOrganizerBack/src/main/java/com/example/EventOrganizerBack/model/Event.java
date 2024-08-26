@@ -1,5 +1,6 @@
 package com.example.EventOrganizerBack.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -16,6 +17,7 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "created_by" , referencedColumnName = "id")
+    @JsonBackReference
     private User creator;
 
     @Lob
@@ -36,12 +38,15 @@ public class Event {
     private String location;
 
     @OneToMany(mappedBy = "event")
+    @JsonBackReference
     private List<Notification> notifications;
 
     @OneToMany(mappedBy = "event")
+    @JsonBackReference
     private List<Comment> comments;
 
     @OneToMany(mappedBy = "event")
+    @JsonBackReference
     private List<UserEvent> userEvents;
 
     public Integer getId() {
