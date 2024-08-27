@@ -12,8 +12,8 @@ import { HttpProviderService } from '../service/http-provider.service';
 export class SecondHomeComponent implements OnInit {
   events: any[] = [];
 
-  constructor(private httpProviderService: HttpProviderService) {  }
-  ngOnInit() {
+  constructor(private httpProviderService: HttpProviderService) {}
+  ngOnInit():void {
     this.LoadEvents();
   }
   LoadEvents() {
