@@ -1,0 +1,5 @@
+.second_home_container {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+}

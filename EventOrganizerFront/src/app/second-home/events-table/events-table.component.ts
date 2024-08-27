@@ -18,6 +18,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
   styleUrl: './events-table.component.css',
 })
 export class EventsTableComponent<T> implements OnInit, OnChanges {
+  @Input() showFilter: boolean = false;
   @Input() events: T[] = [];
   @Input() displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<T>();
