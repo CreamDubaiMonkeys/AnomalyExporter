@@ -69,15 +69,7 @@ public class EventServiceImpl implements EventService{
 
     @Override
     public List<Event> getAllCreatorEvents(Integer creatorId){
-        List<Event> events = eventRepository.findAll();
-        //filter events with creator id
-        if (events != null){
-            events.removeIf(event -> !event.getCreator().getId().equals(creatorId));
-        }else{
-            events = null;
-        }
-
-        return events;
+        return eventRepository.findAllByCreatorId(creatorId);
     }
 
     @Override
@@ -86,11 +78,24 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public Event deleteEvent(Integer id){
-        Event event = eventRepository.findById(id).orElse(null);
-        if(event != null){
-            eventRepository.delete(event);
+    public void deleteEvent(Integer id){
+        eventRepository.findById(id).ifPresent(eventRepository::delete);
+    }
+
+    @Override
+    public List<Event> getAllPublicEventsExceptMine(Integer userId){
+        List<Event> events = eventRepository.findAllByCreatorIdNot(userId);
+
+        //filter events with creator id
+        if (! events.isEmpty()){
+            //remove private events
+            events.removeIf(event -> event.getIs_private());//Method interface Event::getIs_private
+
+        }else{
+           //send empty list if no
+            events = null;
         }
-        return event;
+
+        return events;
     }
 }
