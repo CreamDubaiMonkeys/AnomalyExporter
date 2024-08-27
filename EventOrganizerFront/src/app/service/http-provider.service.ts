@@ -15,5 +15,8 @@ export class HttpProviderService {
   getAllEvents() {
     return this.webApiService.get(this.httpLinks.getAllEvents);
   }
+  getEventById(id: number) {
+    return this.webApiService.get(this.httpLinks.getAllEvents + '/' + id);
+  }
 
 }
