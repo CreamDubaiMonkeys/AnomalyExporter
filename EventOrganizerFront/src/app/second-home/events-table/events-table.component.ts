@@ -1,50 +1,51 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 @Component({
-  selector: 'app-my-events-table',
+  selector: 'events-table',
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, MatTableModule, CommonModule],
-  templateUrl: './my-events-table.component.html',
-  styleUrl: './my-events-table.component.css',
+  templateUrl: './events-table.component.html',
+  styleUrl: './events-table.component.css',
 })
-export class MyEventsTableComponent implements OnInit, OnChanges {
-  @Input() events: any;
-  dataSource = new MatTableDataSource();
+export class EventsTableComponent<T> implements OnInit, OnChanges {
+  @Input() events: T[] = [];
+  @Input() displayedColumns: string[] = [];
+  dataSource = new MatTableDataSource<T>();
 
-  //displayedColumns: string[] = ['description', 'date', 'time', 'capacity', 'created_at', 'updated_at', 'title', 'location']
-  displayedColumns: string[] = [
-    'title',
-    'date',
-    'time',
-    'capacity',
-    'created_at',
-    'description',
-    'location',
-  ];
   ngOnInit() {
     this.initializeDataSource();
   }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['events']) {
       this.initializeDataSource();
     }
   }
+
   initializeDataSource() {
     if (this.events) {
       console.log('Events:', this.events);
 
       this.dataSource.data = this.events;
 
-      this.dataSource.filterPredicate = (data: any, filter: string) => {
-        const dataStr = Object.keys(data)
+      this.dataSource.filterPredicate = (data: T, filter: string) => {
+        const dataStr = Object.keys(data as object)
           .reduce((currentTerm, key) => {
             return (
               currentTerm +
-              ((data[key] && data[key].toString().toLowerCase()) || '') +
+              ((data[key as keyof T] &&
+                String(data[key as keyof T]).toLowerCase()) ||
+                '') +
               ' '
             );
           }, '')
@@ -54,6 +55,7 @@ export class MyEventsTableComponent implements OnInit, OnChanges {
       };
     }
   }
+
   // used to filter the data
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -61,4 +63,3 @@ export class MyEventsTableComponent implements OnInit, OnChanges {
     console.log('Filter Value:', filterValue); // Log the filter value to verify
   }
 }
-  
