@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/events")
+@CrossOrigin(origins = "http://localhost:4200")
 public class EventController {
     private final EventService eventService;
 
@@ -65,8 +66,8 @@ public class EventController {
         }
     }
 
-    @GetMapping("/all/{id}")
-    public ResponseEntity<Object> getEventsByCreatorId(@PathVariable Integer id) {
+    @GetMapping("/all")
+    public ResponseEntity<Object> getEventsByCreatorId(@RequestParam Integer id) {
         try{
             if (eventService.getAllCreatorEvents(id).isEmpty()) {
                 return new ResponseEntity<>("No events found", org.springframework.http.HttpStatus.NOT_FOUND);
@@ -77,7 +78,7 @@ public class EventController {
         }
     }
 
-    @GetMapping("/all")
+    @GetMapping("/super_all")
     public ResponseEntity<Object> getAllEvents() {
         try{
             if (eventService.getAllEvents().isEmpty()) {
@@ -88,12 +89,23 @@ public class EventController {
             return ResponseEntity.badRequest().body("Error while getting events");
         }
     }
+    @GetMapping("/all_public_events_except_mine")
+    public ResponseEntity<Object> getAllPublicEventsExceptMine(@RequestParam Integer id) {
+        try{
+            if (eventService.getAllPublicEventsExceptMine(id).isEmpty()) {
+                return new ResponseEntity<>("No events found", org.springframework.http.HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(eventService.getAllPublicEventsExceptMine(id), org.springframework.http.HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error while getting events");
+        }
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> deleteEvent(@PathVariable Integer id) {
         try{
-            Event deletedEvent = eventService.deleteEvent(id);
-            return new ResponseEntity<>(deletedEvent, org.springframework.http.HttpStatus.OK);
+            eventService.deleteEvent(id);
+            return new ResponseEntity<>( org.springframework.http.HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error while deleting event");
         }

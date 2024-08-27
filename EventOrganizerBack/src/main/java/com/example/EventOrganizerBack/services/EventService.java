@@ -11,5 +11,6 @@ public interface EventService {
     Event getEventById(Integer id);
     List<Event> getAllCreatorEvents(Integer userId);
     List<Event> getAllEvents();
-    Event deleteEvent(Integer id);
+    void deleteEvent(Integer id);
+    List<Event> getAllPublicEventsExceptMine(Integer userId);
 }
