@@ -1,19 +1,47 @@
-<mat-form-field appearance="fill">
-  <mat-label>Title</mat-label>
-  <input placeholder="Title" type="text" matInput autocomplete="off">
-</mat-form-field> 
+<div class="form-container">
+  <div class="Creation Evenement">
+    <h2>Create your event</h2>
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="Title" autocomplete="off">
+      </mat-form-field>
 
-<mat-form-field appearance="fill">
-  <mat-label>Description</mat-label>
-  <input placeholder="Description" type="text" matInput autocomplete="off">
-</mat-form-field> 
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <input matInput placeholder="Description" autocomplete="off">
+      </mat-form-field>
 
-<mat-form-field appearance="fill">
-  <mat-label>Date</mat-label>
-  <input placeholder="Date" type="text" matInput autocomplete="off">
-</mat-form-field> 
+      <mat-form-field appearance="fill">
+        <mat-label>Date</mat-label>
+        <input matInput placeholder="Date" autocomplete="off">
+      </mat-form-field>
 
-<mat-form-field appearance="fill">
-  <mat-label>Location</mat-label>
-  <input placeholder="Location" type="text" matInput autocomplete="off">
-</mat-form-field> 
+      <mat-form-field appearance="fill">
+        <mat-label>Location</mat-label>
+        <input matInput placeholder="Location" autocomplete="off">
+      </mat-form-field>
+
+
+      <!-- Choix multiple -->
+      <mat-form-field appearance="fill">
+        <mat-label>Select Participants</mat-label>
+        <mat-select multiple>
+          <mat-option>--</mat-option>
+    @for (email of emails; track email) {
+      <mat-option [value]="email">{{email}}</mat-option>
+    }
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Bouton pour créer l'événement -->
+      <button mat-raised-button color="primary" (click)="createEvent()">Créer l'Événement</button>
+
+      <!-- Message de confirmation -->
+      <div *ngIf="confirmationMessage" class="confirmation-message">
+        {{ confirmationMessage }}
+      
+     </div>
+   </div>
+ </div>
+</div>

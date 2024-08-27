@@ -12,6 +12,8 @@ import { AppComponent } from "./app.component";
 import { EventCreateComponent } from "./components/event-create/event-create.component";
 import { EventService } from "./services/event.service";
 import { routes } from "./app.routes";
+import {  MatSelect } from "@angular/material/select";
+import { CommonModule } from "@angular/common";
 
 NgModule({
     declarations: [
@@ -25,6 +27,8 @@ NgModule({
         FormsModule,
         MatFormFieldModule,
         MatInputModule,
+        MatSelect,
+        CommonModule,
         RouterModule.forRoot(routes)
     ],
     providers: [
