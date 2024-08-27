@@ -1,8 +1,8 @@
+<div class="event_table">
 
- <mat-form-field>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Filter" #input />
+<mat-form-field class="filter_input" *ngIf="showFilter">
+  <input  matInput (keyup)="applyFilter($event)" placeholder="Filter" #input />
 </mat-form-field>
-
 <table
   mat-table
   [dataSource]="dataSource"
@@ -18,7 +18,8 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   <tr class="mat-row" *matNoDataRow>
     <td class="mat-cell" [attr.colspan]="displayedColumns.length">
-      No data matching the filter "{{ input.value }}"
+      No data matching the filter 
     </td>
   </tr>
 </table>
+</div>
