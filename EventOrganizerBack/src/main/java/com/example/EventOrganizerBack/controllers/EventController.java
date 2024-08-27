@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/events")
 public class EventController {
     private final EventService eventService;
 
@@ -35,7 +37,7 @@ public class EventController {
 
 * */
 
-    @PostMapping("/event")
+    @PostMapping("/create")
     public ResponseEntity<Object> createEvent(@RequestBody EventDto eventDto) {
         try{
             Event createdEvent = eventService.createEvent(eventDto);
