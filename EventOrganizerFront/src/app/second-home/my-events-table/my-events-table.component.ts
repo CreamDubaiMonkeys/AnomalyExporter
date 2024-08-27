@@ -7,10 +7,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 @Component({
   selector: 'app-my-events-table',
   standalone: true,
-  imports: [MatFormFieldModule, 
-    MatInputModule, 
-    MatTableModule, 
-    CommonModule],
+  imports: [MatFormFieldModule, MatInputModule, MatTableModule, CommonModule],
   templateUrl: './my-events-table.component.html',
   styleUrl: './my-events-table.component.css',
 })
@@ -25,15 +22,14 @@ export class MyEventsTableComponent implements OnInit, OnChanges {
     'time',
     'capacity',
     'created_at',
-    'updated_at',
-    'title',
+    'description',
     'location',
   ];
   ngOnInit() {
     this.initializeDataSource();
   }
-  ngOnChanges(changes:SimpleChanges) {
-    if(changes['events']) {
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['events']) {
       this.initializeDataSource();
     }
   }
@@ -64,6 +60,5 @@ export class MyEventsTableComponent implements OnInit, OnChanges {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     console.log('Filter Value:', filterValue); // Log the filter value to verify
   }
-
 }
   

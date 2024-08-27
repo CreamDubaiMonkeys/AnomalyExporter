@@ -11,13 +11,14 @@ import { HttpProviderService } from '../service/http-provider.service';
 })
 export class SecondHomeComponent implements OnInit {
   events: any[] = [];
+  id = 1;
 
   constructor(private httpProviderService: HttpProviderService) {}
   ngOnInit():void {
     this.LoadEvents();
   }
   LoadEvents() {
-    this.httpProviderService.getAllEvents().subscribe(
+    this.httpProviderService.getEventById(this.id).subscribe(
       (res) => {
         this.events = res.body;
         console.log('Compartiments:', this.events);
