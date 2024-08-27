@@ -15,6 +15,8 @@ import com.example.EventOrganizerBack.dto.RegisterDto;
 import com.example.EventOrganizerBack.model.User;
 import com.example.EventOrganizerBack.repository.UserRepository;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -33,7 +35,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
+    public ResponseEntity<String> register(@Valid @RequestBody RegisterDto registerDto) {
         if (userRepository.existsByUsername(registerDto.getUsername())) {
             return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
         }
@@ -41,6 +43,9 @@ public class AuthController {
         User user = new User();
         user.setUsername(registerDto.getUsername());
         user.setPassword_hash(passwordEncoder.encode(registerDto.getPassword()));
+        user.setFirst_name(registerDto.getFirst_name());
+        user.setLast_name(registerDto.getLast_name());
+        user.setEmail(registerDto.getEmail());
 
         userRepository.save(user);
 
