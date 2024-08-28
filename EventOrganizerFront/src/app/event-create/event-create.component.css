@@ -1,0 +1,165 @@
+/* Container for the form */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+  }
+  
+  /* Header style */
+  .container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Form styling */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form div {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  :host {
+    --bright-blue: rgba(51.01%, 0.274, 263.83%);
+    --electric-violet: rgba(53.18%, 0.28, 296.97%);
+    --french-violet: rgba(47.66%, 0.246, 305.88%);
+    --vivid-pink: rgba(69.02%, 0.277, 332.77%);
+    --hot-red: rgba(61.42%, 0.238, 15.34%);
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .Creation.Evenement h2 {
+    font-size: 45px;
+    color: #3f51b5; 
+    margin-bottom: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  
+  .form-group {
+    width: 100%;
+  }
+  
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  input.mat-input-element {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  mat-select {
+    font-size: 16px;
+  }
+  
+  mat-option {
+    font-size: 16px;
+  }
+  
+  @media screen and (max-width: 650px) {
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  
+    .form-group {
+      width: 100%;
+    }
+  
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 16px;
+    }
+  
+    input.mat-input-element {
+      padding: 10px;
+      font-size: 16px;
+    }
+  
+    mat-select {
+      font-size: 16px;
+    }
+  
+    mat-option {
+      font-size: 16px;
+    }
+  
+    .content {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    button {
+      margin-top: 20px;
+    }
+  
+    .divider {
+      height: 1px;
+      width: 100%;
+      background: var(--red-to-pink-to-purple-horizontal-gradient);
+      margin-block: 1.5rem;
+    }
+  /* Confirmation message styling */
+  .confirmation-message {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #d4edda;
+    border-radius: 4px;
+    background-color: #d4edda;
+    color: rgb(70, 181, 70);
+    font-size: 16px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+  }
+}
