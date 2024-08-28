@@ -1,24 +1,52 @@
-<div class="form-container">
-    <div class="inscription-card">
-    <h2>Créer un compte Event Organizer</h2>
-    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-      <div class="form-group">
-        <input class="input-inscription" type="text" id="nom" name="nom" ngModel required placeholder="Nom">
-      </div>
-      <div class="form-group">
-        <input class="input-inscription" type="text" id="prenom" name="prenom" ngModel required placeholder="Prénom">
-      </div>
-      <div class="form-group">
-        <input class="input-inscription" type="email" id="email" name="email" ngModel required placeholder="Adresse mail">
-      </div>
-      <div class="form-group">
-        <input class="input-inscription" type="password" id="password" name="password" ngModel required placeholder="Mot de passe">
-      </div>
-      <div class="form-group">
-        <input class="input-inscription" type="password" id="password" name="password" ngModel required placeholder="Confirmation mot de passe">
-      </div>
-      <button class="btn btn-success" type="submit"  [disabled]="!loginForm.valid" >Créer un compte</button>
-      <p>Vous avez un compte ? <a [routerLink]="['/']">Connectez vous</a></p>
-    </form>
-    </div>
-  </div> 
+<div class="inscription-card">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Inscription</mat-card-title>
+        </mat-card-header>
+
+        <!-- Wrap the fields in a form and use (ngSubmit) for form submission -->
+        <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+            <mat-card-content>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput id="email" name="email" ngModel>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-content>
+                <mat-form-field appearance="outline">
+                    <mat-label>Prénom</mat-label>
+                    <input matInput id="first_name" name="first_name" ngModel>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-content>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nom de famille</mat-label>
+                    <input matInput id="last_name" name="last_name" ngModel>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-content>
+                <mat-form-field appearance="outline">
+                    <mat-label>Pseudonyme</mat-label>
+                    <input matInput id="username" name="username" ngModel>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-content>
+                <mat-form-field appearance="outline">
+                    <mat-label>Mot de passe</mat-label>
+                    <input matInput [type]="hide() ? 'password' : 'text'" id="password" name="password" ngModel>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-content>
+                <mat-form-field appearance="outline">
+                    <mat-label>Confirmer le mot de passe</mat-label>
+                    <input matInput [type]="hide() ? 'password' : 'text'" id="password_confirm" name="password_confirm"
+                        ngModel>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-flat-button type="submit">S'inscrire</button>
+                <p>Vous avez un compte ? <a [routerLink]="['/']">Connectez-vous</a></p>
+            </mat-card-actions>
+        </form>
+    </mat-card>
+</div>

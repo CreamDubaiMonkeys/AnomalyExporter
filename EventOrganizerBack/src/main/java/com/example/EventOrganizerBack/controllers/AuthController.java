@@ -9,11 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.EventOrganizerBack.dto.RegisterDto;
+import com.example.EventOrganizerBack.dto.ResponseDto;
 import com.example.EventOrganizerBack.model.User;
 import com.example.EventOrganizerBack.repository.UserRepository;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
@@ -33,18 +37,22 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
+    @ResponseBody
+    public ResponseEntity<ResponseDto> register(@Valid @RequestBody RegisterDto registerDto) {
         if (userRepository.existsByUsername(registerDto.getUsername())) {
-            return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseDto("Username already exists"), HttpStatus.BAD_REQUEST);
         }
 
         User user = new User();
         user.setUsername(registerDto.getUsername());
         user.setPassword_hash(passwordEncoder.encode(registerDto.getPassword()));
+        user.setFirst_name(registerDto.getFirst_name());
+        user.setLast_name(registerDto.getLast_name());
+        user.setEmail(registerDto.getEmail());
 
-        userRepository.save(user);
-
-        return new ResponseEntity<>("User created", HttpStatus.CREATED);
+        userRepository.save(user);        
+        
+        return new ResponseEntity<>(new ResponseDto("User registered successfully"), HttpStatus.CREATED);
     }
 
     @GetMapping("/register")

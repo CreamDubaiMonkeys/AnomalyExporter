@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { CalendarModule } from './calendar/calendar.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CommonModule } from '@angular/common';
-import { AuthentificationService } from './authentification.service';
+import { AuthentificationService } from './service/authentification.service';
 
 @Component({
   selector: 'app-root',
