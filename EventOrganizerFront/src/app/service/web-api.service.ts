@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class WebApiService {
-    constructor(private httpClient: HttpClient) { }
+    httpOptions: Object;
 
-    get(url: string): Observable<any> {
-        const httpOptions = {
+    constructor(private httpClient: HttpClient) {
+        this.httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Cache-Control': 'no-cache',
@@ -17,17 +17,17 @@ export class WebApiService {
             }),
             observe: 'response' as 'body',
         };
-        return this.httpClient.get(url, httpOptions);
+    }
+
+    get(url: string): Observable<any> {
+        return this.httpClient.get(url, this.httpOptions);
     }
 
     post(
         url: string,
         body: any,
-        headers: HttpHeaders = new HttpHeaders({
-            'Content-Type': 'application/json',
-        })
     ): Observable<any> {
-        return this.httpClient.post(url, body, { headers });
+        return this.httpClient.post(url, body, this.httpOptions);
     }
 
 }
