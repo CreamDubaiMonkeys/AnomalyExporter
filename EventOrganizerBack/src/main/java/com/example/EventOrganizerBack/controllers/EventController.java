@@ -17,7 +17,6 @@ public class EventController {
         this.eventService = eventService;
     }
 
-
     @PostMapping("/create")
     public ResponseEntity<Object> createEvent(@RequestBody EventDto eventDto) {
                 /*
