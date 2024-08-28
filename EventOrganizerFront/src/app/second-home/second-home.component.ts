@@ -20,8 +20,7 @@ export class SecondHomeComponent implements OnInit {
     'time',
     'capacity',
     'created_at',
-    'description',
-    'location',
+ 
   ];
   id = 1;
   publicEventsDisplayedColumns: string[] = [
