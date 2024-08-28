@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class WebApiService {
   constructor(private httpClient: HttpClient) {}
 
-  get(url: string): Observable<any> {
+  get(url: string, id?: number): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -16,7 +16,15 @@ export class WebApiService {
         Pragma: 'no-cache',
       }),
       observe: 'response' as 'body',
+      params: {},
     };
+
+    if (id) {
+      httpOptions.params = {
+        id: id.toString(),
+      };
+    }
+
     return this.httpClient.get(url, httpOptions);
   }
 }

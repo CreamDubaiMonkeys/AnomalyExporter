@@ -31,7 +31,7 @@ export class EventListComponent<T> implements OnInit, OnChanges {
 
   initializeEvents(): void {
     if (this.events) {
-      console.log('Events:', this.events);
+      console.log('Events passed by parent to list :', this.events);
     }
   }
 }

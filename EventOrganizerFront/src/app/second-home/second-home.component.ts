@@ -6,7 +6,7 @@ import { EventListComponent } from './event-list/event-list.component';
 @Component({
   selector: 'app-second-home',
   standalone: true,
-  imports: [ EventsTableComponent, EventListComponent],
+  imports: [EventsTableComponent, EventListComponent],
   templateUrl: './second-home.component.html',
   styleUrl: './second-home.component.css',
 })
@@ -20,7 +20,6 @@ export class SecondHomeComponent implements OnInit {
     'time',
     'capacity',
     'created_at',
- 
   ];
   id = 1;
   publicEventsDisplayedColumns: string[] = [
@@ -44,7 +43,6 @@ export class SecondHomeComponent implements OnInit {
     this.httpProviderService.getEventById(this.id).subscribe(
       (res) => {
         this.myEvents = res.body;
-        console.log('Compartiments:', this.myEvents);
       },
       (error) => {
         console.error('Error fetching compartiments:', error);
@@ -52,7 +50,7 @@ export class SecondHomeComponent implements OnInit {
     );
   }
   LoadPublicEvents() {
-    this.httpProviderService.getAllEvents().subscribe(
+    this.httpProviderService.getAllPublicEvents(this.id).subscribe(
       (res) => {
         this.publicEvents = res.body;
         console.log('Public Events:', this.publicEvents);
@@ -62,14 +60,14 @@ export class SecondHomeComponent implements OnInit {
       }
     );
   }
-  LoadHistoricevents(){
+  LoadHistoricevents() {
     this.httpProviderService.getHistoryEvents(this.id).subscribe(
       (res) => {
         this.myEvents = res.body;
         console.log('Compartiments:', this.myEvents);
       },
       (error) => {
-        console.error('Error fetching compartiments:', error);
+        console.error('Error fetching historic events', error);
       }
     );
   }

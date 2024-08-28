@@ -334,5 +334,51 @@ export class CalendarComponent implements AfterViewInit {
 
     dp.events.update(modal.result);
   }
-
 }
+// }  myEvents: any[] = [];
+//   /*
+//       this.ds.getEvents(from, to).subscribe(
+//       (res: any) => {
+//       this.myEvents = res.body;
+//       console.log('this is events inside get events events:', this.myEvents);
+//       this.eventConverter(this.myEvents, this.events);
+//       },
+//       (error) => {
+//       console.error('Error fetching compartiments:', error);
+//       }
+//     );*/
+//   eventConverter(myEvent: any, events: any) {
+//     function convertEvent(myEvent: any) {
+//       return {
+//         id: myEvent.id,
+//         text: myEvent.title,
+//         start: myEvent.date + 'T' + myEvent.time,
+//         end: myEvent.date + 'T' + myEvent.time,
+//         participans: myEvent.capacity,
+//       };
+//     }
+//     //convert all events
+//     console.log('this is the MyEvent events:', this.myEvents);
+//     this.myEvents = this.myEvents.map(convertEvent);
+//     //concatenate myEvents to events
+//     //console.log('this is the event events:', this.events);
+//     this.events = this.events.concat(this.myEvents);
+//     console.log('this is the event events:', this.events);
+//   }
+//   static colors = {
+//     green: '#6aa84f',
+//     yellow: '#f1c232',
+//     red: '#cc4125',
+//     gray: '#808080',
+//     blue: '#2e78d6',
+//   };
+
+//   events = [
+//     {
+//       id: 100,
+//       text: 'Event 1',
+//       start: DayPilot.Date.today().firstDayOfWeek(),
+//       end: DayPilot.Date.today().firstDayOfWeek(),
+//       participants: 2,
+//     },
+//   ];

@@ -8,17 +8,19 @@ export class HttpProviderService {
   private baseUrl = 'http://localhost:8080';
   private httpLinks = {
     getAllEvents: this.baseUrl + '/events/all',
+    getAllPublicEvents: this.baseUrl + '/events/all_public_events_except_mine',
+    getHistoryEvents: this.baseUrl + '/events/all',
   };
 
   constructor(private webApiService: WebApiService) {}
 
-  getAllEvents() {
-    return this.webApiService.get(this.httpLinks.getAllEvents);
+  getAllPublicEvents(id: number) {
+    return this.webApiService.get(this.httpLinks.getAllPublicEvents, id);
   }
   getEventById(id: number) {
-    return this.webApiService.get(this.httpLinks.getAllEvents + '/' + id);
+    return this.webApiService.get(this.httpLinks.getAllEvents, id);
   }
   getHistoryEvents(id: number) {
-    return this.webApiService.get(this.httpLinks.getAllEvents + '/' + id);
+    return this.webApiService.get(this.httpLinks.getAllEvents , id);
   }
 }
