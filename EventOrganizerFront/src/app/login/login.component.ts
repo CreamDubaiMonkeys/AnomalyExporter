@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgForm, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
+import { AuthentificationService } from '../authentification.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -11,8 +12,12 @@ import { RouterModule } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  
+  constructor(private router: Router, private authenService : AuthentificationService) {}
   onSubmit(form: NgForm) {
     console.log(form.value);
-    // Do login here
+    this.authenService.login();
+    this.router.navigate(['/calendar']);
   }
+
 }

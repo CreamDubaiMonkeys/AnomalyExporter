@@ -11,11 +11,26 @@
     background: white;
     padding: 50px;
     border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   }
 
-  .form-group{
+  .input-group{
     margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-group{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
   }
 
   .btn-connexion {
@@ -33,8 +48,8 @@
   }
 
   .input-login {
-    height: 20px; 
-    width: 250px; 
+    height: 50px; 
+    width: 350px; 
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
