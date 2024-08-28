@@ -1,0 +1,20 @@
+<div class="second_home_container">
+  <div class="tables_area">
+    <h4>My Events</h4>
+    <events-table
+      [events]="myEvents"
+      [displayedColumns]="myEventsDisplayedColumns"
+      [showFilter]="true"
+    ></events-table>
+    <br>
+    <h5>Public Events</h5>
+    <events-table
+      [events]="publicEvents"
+      [displayedColumns]="publicEventsDisplayedColumns"
+      [showFilter]="false"
+    ></events-table>
+  </div>
+  <div class="list_area">
+    <app-event-list [events]="historyEvents"></app-event-list>
+  </div>
+</div>
