@@ -6,7 +6,7 @@ import { HttpProviderService } from '../service/http-provider.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatOption, MatSelect } from '@angular/material/select';
-import { RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router'
 
 
 
@@ -24,7 +24,7 @@ import { RouterModule } from '@angular/router';
     RouterModule
 ],
   templateUrl: './event-create.component.html',
-  styleUrls: ['./event-create.component.css']
+  styleUrls: ['./event-create.component.css'],
 })
 export class EventCreateComponent {
 eventCreate() {
