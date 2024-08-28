@@ -2,12 +2,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { HomeComponent } from './home/home.component';
+import { SecondHomeComponent } from './second-home/second-home.component';
 import { LoginGuard } from './login.guard';
 import { LogoutGuard } from './logout.guard';
 
 const AppRoutingModule: Routes = [
+  
   { path: '', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'inscription', component: InscriptionComponent, canActivate: [LoginGuard]  },
-  { path: 'calendar', component: HomeComponent, canActivate: [LogoutGuard]}
+  { path: 'calendar', component: HomeComponent, canActivate: [LogoutGuard]},
+  {path: 'homelist', component: SecondHomeComponent, canActivate: [LogoutGuard]},
+
 ];
 export default AppRoutingModule;

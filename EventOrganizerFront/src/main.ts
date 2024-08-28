@@ -4,7 +4,13 @@ import { AppComponent } from './app/app.component';
 import {provideRouter} from '@angular/router';
 import AppRoutingModule from './app/routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHttpClient } from '@angular/common/http';
 
 bootstrapApplication(AppComponent, {
-  providers: [provideProtractorTestingSupport(), provideRouter(AppRoutingModule), provideAnimationsAsync(), provideAnimationsAsync()],
+  providers: [
+    provideProtractorTestingSupport(),
+    provideRouter(AppRoutingModule),
+    provideAnimationsAsync(),
+    provideHttpClient(),
+  ],
 }).catch((err) => console.error(err));
