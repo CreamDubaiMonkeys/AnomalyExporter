@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthentificationServiceService } from '../authentification.service.service';
+import { AuthentificationService } from '../authentification.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar',
@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
 
-  constructor(private authservice : AuthentificationServiceService, private router: Router){}
+  constructor(private authservice : AuthentificationService, private router: Router){}
   logout() {
-    this.authservice.logout;
+    this.authservice.logout();
     this.router.navigate(['']); 
   }
 
