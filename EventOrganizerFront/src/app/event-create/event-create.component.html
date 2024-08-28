@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>Create Event</h2>
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+    <!-- Champ pour le titre de l'événement -->
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput type="text" id="title" required [(ngModel)]="event.title" name="title" autocomplete="off">
+    </mat-form-field>
+
+    <!-- Champ pour la description de l'événement -->
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput id="description" required [(ngModel)]="event.description" name="description"></textarea>
+    </mat-form-field>
+
+    <!-- Champ pour la date de l'événement -->
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput type="date" id="date" required [(ngModel)]="event.date" name="date" autocomplete="off">
+    </mat-form-field>
+
+    <!-- Champ pour la localisation de l'événement -->
+    <mat-form-field appearance="fill">
+      <mat-label>Location</mat-label>
+      <input matInput type="text" id="location" required [(ngModel)]="event.location" name="location" autocomplete="off">
+    </mat-form-field>
+
+    <!-- Champ pour la sélection des participants -->
+    <mat-form-field appearance="fill">
+      <mat-label>Select Participants</mat-label>
+      <mat-select multiple>
+        <mat-option>--</mat-option>
+    @for (email of emails; track email) {
+    <mat-option [value]="email">{{email}}</mat-option>
+    }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Bouton pour créer l'événement -->
+    <button mat-raised-button color="primary" type="submit">Create Event</button>
+  </form>
+
+  <!-- Message de confirmation -->
+  <div *ngIf="confirmationMessage" class="confirmation-message">
+    <p>{{ confirmationMessage }}</p>
+  </div>
+</div>
