@@ -5,8 +5,9 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { RouterModule } from '@angular/router';
 import { CalendarModule } from './calendar/calendar.module';
 import { NavbarComponent } from './navbar/navbar.component';
-import { AuthentificationServiceService } from './authentification.service.service';
 import { CommonModule } from '@angular/common';
+import { AuthentificationService } from './authentification.service';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,9 +17,9 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'EventOrganizerFront';
-  constructor(public authService: AuthentificationServiceService) {}  
-
-  isLoggedIn(): boolean {
+  constructor(private authService: AuthentificationService ){}
+  
+  isNavbarVisible(): boolean { 
     return this.authService.isAuthenticated();
-}
+  }
 }

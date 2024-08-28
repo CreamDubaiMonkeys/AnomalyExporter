@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgForm, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AuthentificationServiceService } from '../authentification.service.service';
+import { AuthentificationService } from '../authentification.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
@@ -13,17 +13,11 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   
-  constructor(private authService: AuthentificationServiceService, private router: Router) {}
+  constructor(private router: Router, private authenService : AuthentificationService) {}
   onSubmit(form: NgForm) {
     console.log(form.value);
-    this.login();
+    this.authenService.login();
+    this.router.navigate(['/calendar']);
   }
-  
-  isLoggedIn(): boolean {
-    return this.authService.isAuthenticated();
-  }
-  login() {
-    this.authService.login();
-    this.router.navigate(['/calendar']); 
-  }
+
 }

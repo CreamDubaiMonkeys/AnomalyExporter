@@ -4,12 +4,12 @@ import { AuthentificationService } from './authentification.service';
 import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
-export class LoginGuard implements CanActivate {
+export class LogoutGuard implements CanActivate {
     constructor(private authservice: AuthentificationService, private router: Router) {}
     
     canActivate() {
-        if (this.authservice.isAuthenticated()) {
-            this.router.navigate(['/calendar']);   
+        if (!this.authservice.isAuthenticated()) {
+            this.router.navigate(['']);   
             return false;
         } else {
             return true; 
