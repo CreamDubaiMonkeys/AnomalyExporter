@@ -49,7 +49,7 @@ public class AuthController {
 
         userRepository.save(user);
 
-        return new ResponseEntity<>("User created", HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/register")
