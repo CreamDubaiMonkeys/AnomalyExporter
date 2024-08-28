@@ -8,6 +8,7 @@ export class HttpProviderService {
   private baseUrl = 'http://localhost:8080';
   private httpLinks = {
     getAllEvents: this.baseUrl + '/events/all',
+
   };
 
   constructor(private webApiService: WebApiService) {}
@@ -21,4 +22,8 @@ export class HttpProviderService {
   getHistoryEvents(id: number) {
     return this.webApiService.get(this.httpLinks.getAllEvents + '/' + id);
   }
+  postUserSubscribe(data: any) {
+    return this.webApiService.post(this.baseUrl + '/subscribe', data);
+  }
+
 }
