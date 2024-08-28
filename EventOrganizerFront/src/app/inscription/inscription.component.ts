@@ -6,6 +6,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { RegisterUser } from '../interface/user';
+import { HttpProviderService } from '../service/http-provider.service';
 
 @Component({
   selector: 'app-inscription',
@@ -16,7 +18,29 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class InscriptionComponent {
     hide=signal(true);
-    onSubmit(form: NgForm) {
-      console.log(form.value); 
+
+    constructor(private httpProviderService: HttpProviderService){}
+
+    onSubmit(form: NgForm): void {
+      const userToRegister: RegisterUser = {
+        username: form.value.username,
+        password: form.value.password,
+        email: form.value.email,
+        first_name: form.value.first_name,
+        last_name: form.value.last_name,
+      };
+
+      this.httpProviderService.postUserSubscribe(userToRegister).subscribe(
+        (res) => {
+          console.log('User registered:', res);
+        },
+        (error) => {
+          console.error('Error registering user:', error);
+        }
+      );
+
+
     }
+
+    
 }
