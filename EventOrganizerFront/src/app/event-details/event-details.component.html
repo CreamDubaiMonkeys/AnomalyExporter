@@ -1,0 +1,33 @@
+<mat-card class="event-card">
+    <mat-card-header>
+      <mat-card-title>
+        <h2>{{ this.event.title }}</h2>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <span>Organisation: {{ this.event.creator }}</span>
+      </mat-card-subtitle>
+    </mat-card-header>
+  
+    <mat-card-content>
+      <p>{{ this.event.description }}</p>
+  
+      <mat-divider></mat-divider>
+  
+      <div class="event-info">
+        <p><mat-icon>event</mat-icon> Date: {{ this.event.date | date: 'dd/MM/yyyy' }}</p>
+        <p><mat-icon>access_time</mat-icon> Horaire: {{ this.event.date | date: 'HH:mm' }}</p>
+        <p><mat-icon>people</mat-icon> Capacité: {{ this.event.capacity }} participants</p>
+      </div>
+  
+      <mat-divider></mat-divider>
+  
+      <h5>Participants</h5>
+      <mat-list>
+        <mat-list-item *ngFor="let participant of this.event.participants">
+          <mat-icon matListIcon>person</mat-icon>
+          <b matLine>{{ participant }}</b>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+  

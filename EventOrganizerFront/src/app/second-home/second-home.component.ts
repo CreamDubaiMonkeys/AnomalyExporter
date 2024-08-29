@@ -41,7 +41,7 @@ export class SecondHomeComponent implements OnInit {
   }
 
   LoadMyEvents() {
-    this.httpProviderService.getEventById(this.id).subscribe(
+    this.httpProviderService.getEventByUserId(this.id).subscribe(
       (res) => {
         this.myEvents = res.body;
         console.log('Compartiments:', this.myEvents);
