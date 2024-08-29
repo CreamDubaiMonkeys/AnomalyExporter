@@ -5,6 +5,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
+import { User } from '../interface/user';
 
 @Component({
     selector: 'app-event-details',
@@ -17,6 +18,7 @@ export class EventDetailsComponent implements OnInit {
     route: ActivatedRoute = inject(ActivatedRoute);
     eventDetailId: number | null = null;
     event: Object | null = null;
+    participants: Array<User> = []
 
     constructor(private httpProviderService: HttpProviderService) {
     }
@@ -25,23 +27,14 @@ export class EventDetailsComponent implements OnInit {
         this.eventDetailId = parseInt(this.route.snapshot.params['id'], 10)
         this.httpProviderService.getEventById(this.eventDetailId).subscribe(
             (res) => {
-                this.event = res.body;
-                console.log('Event: ', this.event);
+                this.event = res.body.event;
+                console.log('Event', this.event);
+                this.participants = res.body.participants;
+                console.log('Particpants', this.participants);
             },
             (error) => {
                 console.error('Error fetching event:', error);
             }
         )
     }
-
-
-
-    // event = {
-    //     title: 'Angular Workshop',
-    //     description: 'A workshop to learn the basics of Angular and build awesome apps!',
-    //     date: new Date(),
-    //     capacity: 50,
-    //     participants: ['John Doe', 'Jane Smith', 'Emily Johnson', 'Michael Brown'],
-    //     creator: 'Alice Williams'
-    // };
 }

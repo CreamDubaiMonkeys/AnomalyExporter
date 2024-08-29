@@ -23,9 +23,9 @@
   
       <h5>Participants</h5>
       <mat-list>
-        <mat-list-item *ngFor="let participant of this.event.participants">
+        <mat-list-item *ngFor="let participant of this.participants">
           <mat-icon matListIcon>person</mat-icon>
-          <b matLine>{{ participant }}</b>
+          <b matLine>{{ participant.username }}</b>
         </mat-list-item>
       </mat-list>
     </mat-card-content>
