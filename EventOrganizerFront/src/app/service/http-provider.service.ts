@@ -30,9 +30,9 @@ export class HttpProviderService {
       httpOptionsParams
     );
   }
-  getEventById(httpOptionsParams: any) {
+  getEventById(id: number) {
     return this.webApiService.get(
-      this.httpLinks.getEvent + '/' + httpOptionsParams
+      this.httpLinks.getEvent + '/' + id
     );
   }
   postUserSubscribe(data: RegisterUser) {
