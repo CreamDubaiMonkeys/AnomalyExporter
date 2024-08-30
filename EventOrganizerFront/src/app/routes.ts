@@ -5,13 +5,15 @@ import { HomeComponent } from './home/home.component';
 import { SecondHomeComponent } from './second-home/second-home.component';
 import { LoginGuard } from './login.guard';
 import { LogoutGuard } from './logout.guard';
+import { EventDetailsComponent } from './event-details/event-details.component';
 
 const AppRoutingModule: Routes = [
-  
-  { path: '', component: LoginComponent, canActivate: [LoginGuard] },
-  { path: 'inscription', component: InscriptionComponent, canActivate: [LoginGuard]  },
-  { path: 'calendar', component: HomeComponent, canActivate: [LogoutGuard]},
-  {path: 'homelist', component: SecondHomeComponent, canActivate: [LogoutGuard]},
+
+    { path: '', component: LoginComponent, canActivate: [LoginGuard] },
+    { path: 'inscription', component: InscriptionComponent, canActivate: [LoginGuard] },
+    { path: 'calendar', component: HomeComponent, canActivate: [LogoutGuard] },
+    { path: 'homelist', component: SecondHomeComponent, canActivate: [LogoutGuard] },
+    { path: 'event/:id', component: EventDetailsComponent, canActivate: [LogoutGuard] }
 
 ];
 export default AppRoutingModule;

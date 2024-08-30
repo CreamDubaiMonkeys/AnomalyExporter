@@ -8,8 +8,8 @@ import { RegisterUser } from '../interface/user';
 export class HttpProviderService {
   private baseUrl = 'http://localhost:8080';
   private httpLinks = {
+    getEvent: this.baseUrl+'/events',
     getAllEvents: this.baseUrl + '/events/all',
-
   };
 
   constructor(private webApiService: WebApiService) {}
@@ -17,11 +17,14 @@ export class HttpProviderService {
   getAllEvents() {
     return this.webApiService.get(this.httpLinks.getAllEvents);
   }
-  getEventById(id: number) {
+  getEventByUserId(id: number) {
     return this.webApiService.get(this.httpLinks.getAllEvents + '/' + id);
   }
   getHistoryEvents(id: number) {
     return this.webApiService.get(this.httpLinks.getAllEvents + '/' + id);
+  }
+  getEventById(id: number) {
+    return this.webApiService.get(this.httpLinks.getEvent + '/' + id);
   }
   postUserSubscribe(data: RegisterUser) {
     return this.webApiService.post(this.baseUrl + '/auth/register', data);
