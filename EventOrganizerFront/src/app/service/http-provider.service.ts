@@ -8,30 +8,34 @@ import { RegisterUser } from '../interface/user';
 export class HttpProviderService {
   private baseUrl = 'http://localhost:8080';
   private httpLinks = {
-    getEvent: this.baseUrl+'/events',
+    getEvent: this.baseUrl + '/events',
     getAllEvents: this.baseUrl + '/events/all',
     getAllPublicEvents: this.baseUrl + '/events/all_public_events_except_mine',
-    getHistoryEvents: this.baseUrl + '/events/all',
   };
 
   constructor(private webApiService: WebApiService) {}
 
-  getAllPublicEvents(id: number) {
-    return this.webApiService.get(this.httpLinks.getAllPublicEvents, id);
+  getAllPublicEvents(httpOptionsParams: any) {
+    return this.webApiService.get(
+      this.httpLinks.getAllPublicEvents,
+      httpOptionsParams
+    );
   }
-  getEventByUserId(id: number) {
-
-    return this.webApiService.get(this.httpLinks.getAllEvents, id);
-
+  getEventByUserId(httpOptionsParams: any) {
+    return this.webApiService.get(this.httpLinks.getAllEvents, httpOptionsParams);
   }
-  getHistoryEvents(id: number) {
-    return this.webApiService.get(this.httpLinks.getHistoryEvents, id);
+  getHistoryEvents(httpOptionsParams: any) {
+    return this.webApiService.get(
+      this.httpLinks.getAllEvents,
+      httpOptionsParams
+    );
   }
-  getEventById(id: number) {
-    return this.webApiService.get(this.httpLinks.getEvent + '/' + id);
+  getEventById(httpOptionsParams: any) {
+    return this.webApiService.get(
+      this.httpLinks.getEvent + '/' + httpOptionsParams
+    );
   }
   postUserSubscribe(data: RegisterUser) {
     return this.webApiService.post(this.baseUrl + '/auth/register', data);
   }
-
 }

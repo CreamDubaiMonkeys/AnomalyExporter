@@ -23,7 +23,11 @@ export class SecondHomeComponent implements OnInit {
 
     'capacity',
   ];
-  id = 1;
+  
+  //TODO: must be handled by seccion service
+  httpOptionsParams = {
+    id: '1',
+  };
   publicEventsDisplayedColumns: string[] = [
     'title',
     'date',
@@ -41,7 +45,7 @@ export class SecondHomeComponent implements OnInit {
   }
 
   LoadMyEvents() {
-    this.httpProviderService.getEventByUserId(this.id).subscribe(
+    this.httpProviderService.getEventByUserId(this.httpOptionsParams).subscribe(
       (res) => {
         this.myEvents = res.body;
       },
@@ -51,17 +55,19 @@ export class SecondHomeComponent implements OnInit {
     );
   }
   LoadPublicEvents() {
-    this.httpProviderService.getAllPublicEvents(this.id).subscribe(
-      (res) => {
-        this.publicEvents = res.body;
-      },
-      (error) => {
-        console.error('Error fetching public events:', error);
-      }
-    );
+    this.httpProviderService
+      .getAllPublicEvents(this.httpOptionsParams)
+      .subscribe(
+        (res) => {
+          this.publicEvents = res.body;
+        },
+        (error) => {
+          console.error('Error fetching public events:', error);
+        }
+      );
   }
   LoadHistoricevents() {
-    this.httpProviderService.getHistoryEvents(this.id).subscribe(
+    this.httpProviderService.getHistoryEvents(this.httpOptionsParams).subscribe(
       (res) => {
         this.myEvents = res.body;
       },

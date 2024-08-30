@@ -5,27 +5,33 @@ import { HttpProviderService } from '../service/http-provider.service';
 
 @Injectable()
 export class DataService {
+
+  //TODO: must be handled by seccion service
+  httpOptionsParams = {
+    id: '1',
+  };
   myEvents: any[] = [];
+
+
   convertEvent(myEvent: any) {
-    // create a date time object with myEvent.date and myEvent.time and add two hours to it
-    const end = new Date(myEvent.date + 'T' + myEvent.time);
-    const dayPilotEnd = new DayPilot.Date(end); // declare dayPilotEnd variable
-    const End = dayPilotEnd.addHours(5); // add two hours to dayPilotEnd variable
+    const finalEndDate = new DayPilot.Date(new Date(myEvent.date + 'T' + myEvent.time)).addHours(5); 
     return {
       id: myEvent.id,
       text: myEvent.title,
       start: myEvent.date + 'T' + myEvent.time,
-      end: End, // use dayPilotEnd variable
+      end: finalEndDate, // use dayPilotEnd variable
       participans: myEvent.capacity,
     };
   }
-  eventConverter(myEvent: any, events: any) {
-    for (let i = 0; i < myEvent.length; i++) {
-      events.push(this.convertEvent(myEvent[i]));
-      console.log('pushed event:', this.convertEvent(myEvent[i]));
+
+  eventListConverter(myEventList: any) {
+    let events = [];
+    for (let i = 0; i < myEventList.length; i++) {
+      events.push(this.convertEvent(myEventList[i]));
     }
     return events;
   }
+
   static colors = {
     green: '#6aa84f',
     yellow: '#f1c232',
@@ -34,31 +40,12 @@ export class DataService {
     blue: '#2e78d6',
   };
 
-  events = [
-    {
-      id: 1,
-      text: 'Event 1',
-      start: DayPilot.Date.today().firstDayOfWeek().addHours(10),
-      end: DayPilot.Date.today().firstDayOfWeek().addHours(13),
-      participants: 2,
-    },
-    {
-      id: 2,
-      text: 'Event 2',
-      start: DayPilot.Date.today().firstDayOfWeek().addDays(1).addHours(12),
-      end: DayPilot.Date.today().firstDayOfWeek().addDays(1).addHours(15),
-      backColor: DataService.colors.green,
-      participants: 1,
-    },
-  ];
-
   constructor(private httpProvider: HttpProviderService) {}
 
   getEvents(from: DayPilot.Date, to: DayPilot.Date): Observable<any[]> {
-    this.httpProvider.getEventByUserId(1).subscribe(
+    this.httpProvider.getEventByUserId(this.httpOptionsParams).subscribe(
       (res: any) => {
-        this.myEvents = res.body;
-        this.myEvents = this.eventConverter(this.myEvents, this.events);
+        this.myEvents = this.eventListConverter(res.body);
       },
       (error) => {
         console.error('Error fetching compartiments:', error);

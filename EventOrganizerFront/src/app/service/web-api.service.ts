@@ -19,9 +19,6 @@ export class WebApiService {
         };
     }
 
-    get(url: string): Observable<any> {
-        return this.httpClient.get(url, this.httpOptions);
-    }
 
     post(
         url: string,
@@ -31,7 +28,7 @@ export class WebApiService {
     }
 
 
-  get(url: string, id?: number): Observable<any> {
+  get(url: string, httpOptionsParams?: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -42,10 +39,8 @@ export class WebApiService {
       params: {},
     };
 
-    if (id) {
-      httpOptions.params = {
-        id: id.toString(),
-      };
+    if (httpOptionsParams) {
+      httpOptions.params = httpOptionsParams;
     }
 
     return this.httpClient.get(url, httpOptions);
