@@ -41,7 +41,7 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     @ResponseBody
     public ResponseEntity<ResponseWrapper<UserDto>> login(@Valid @RequestBody LoginDto loginDto){
         User userToLog;
