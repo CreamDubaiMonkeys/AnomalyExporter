@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.EventOrganizerBack.controllers.utils.ResponseWrapper;
 import com.example.EventOrganizerBack.dto.LoginDto;
 import com.example.EventOrganizerBack.dto.RegisterDto;
-import com.example.EventOrganizerBack.dto.ResponseDto;
 import com.example.EventOrganizerBack.dto.UserDto;
 import com.example.EventOrganizerBack.model.User;
 import com.example.EventOrganizerBack.repository.UserRepository;
@@ -59,7 +58,7 @@ public class AuthController {
         }
 
         //Check password
-        if (passwordEncoder.encode(loginDto.getPassword()) != userToLog.getPassword_hash()){
+        if (!passwordEncoder.matches(loginDto.getPassword(), userToLog.getPassword_hash())){
             return new ResponseEntity<>(
                 new ResponseWrapper<UserDto>("Wrong password", null), HttpStatus.UNAUTHORIZED
             );
