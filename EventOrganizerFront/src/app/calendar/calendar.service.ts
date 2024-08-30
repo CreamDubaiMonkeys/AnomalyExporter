@@ -1,77 +1,71 @@
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
-import {DayPilot} from "@daypilot/daypilot-lite-angular";
-import {HttpClient} from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { DayPilot } from '@daypilot/daypilot-lite-angular';
+import { HttpProviderService } from '../service/http-provider.service';
 
 @Injectable()
 export class DataService {
 
-  static colors = {
-    green: "#6aa84f",
-    yellow: "#f1c232",
-    red: "#cc4125",
-    gray: "#808080",
-    blue: "#2e78d6",
+  //TODO: must be handled by seccion service
+  httpOptionsParams = {
+    id: '1',
   };
+  myEvents: any[] = [];
 
-  events = [
-    {
-      id: 1,
-      text: "Event 1",
-      start: DayPilot.Date.today().firstDayOfWeek().addHours(10),
-      end: DayPilot.Date.today().firstDayOfWeek().addHours(13),
-      participants: 2,
-    },
-    {
-      id: 2,
-      text: "Event 2",
-      start: DayPilot.Date.today().firstDayOfWeek().addDays(1).addHours(12),
-      end: DayPilot.Date.today().firstDayOfWeek().addDays(1).addHours(15),
-      backColor: DataService.colors.green,
-      participants: 1,
-    },
-    {
-      id: 3,
-      text: "Event 3",
-      start: DayPilot.Date.today().firstDayOfWeek().addDays(2).addHours(13),
-      end: DayPilot.Date.today().firstDayOfWeek().addDays(2).addHours(16),
-      backColor: DataService.colors.yellow,
-      participants: 3,
-    },
-    {
-      id: 4,
-      text: "Event 4",
-      start: DayPilot.Date.today().firstDayOfWeek().addDays(3).addHours(11),
-      end: DayPilot.Date.today().firstDayOfWeek().addDays(3).addHours(15),
-      backColor: DataService.colors.red,
-      participants: 4,
-    },
-  ];
 
-  constructor(private http : HttpClient){
+  convertEvent(myEvent: any) {
+    const finalEndDate = new DayPilot.Date(new Date(myEvent.date + 'T' + myEvent.time)).addHours(5); 
+    return {
+      id: myEvent.id,
+      text: myEvent.title,
+      start: myEvent.date + 'T' + myEvent.time,
+      end: finalEndDate, // use dayPilotEnd variable
+      participans: myEvent.capacity,
+    };
   }
 
-  getEvents(from: DayPilot.Date, to: DayPilot.Date): Observable<any[]> {
+  eventListConverter(myEventList: any) {
+    let events = [];
+    for (let i = 0; i < myEventList.length; i++) {
+      events.push(this.convertEvent(myEventList[i]));
+    }
+    return events;
+  }
 
-    // simulating an HTTP request
-    return new Observable(observer => {
+  static colors = {
+    green: '#6aa84f',
+    yellow: '#f1c232',
+    red: '#cc4125',
+    gray: '#808080',
+    blue: '#2e78d6',
+  };
+
+  constructor(private httpProvider: HttpProviderService) {}
+
+  getEvents(from: DayPilot.Date, to: DayPilot.Date): Observable<any[]> {
+    this.httpProvider.getEventByUserId(this.httpOptionsParams).subscribe(
+      (res: any) => {
+        this.myEvents = this.eventListConverter(res.body);
+      },
+      (error) => {
+        console.error('Error fetching compartiments:', error);
+      }
+    );
+    return new Observable((observer) => {
       setTimeout(() => {
-        observer.next(this.events);
+        observer.next(this.myEvents);
       }, 200);
     });
-
-    // return this.http.get("/api/events?from=" + from.toString() + "&to=" + to.toString());
   }
 
   getColors(): any[] {
-      const colors = [
-        {name: "Green", id: DataService.colors.green},
-        {name: "Yellow", id: DataService.colors.yellow},
-        {name: "Red", id: DataService.colors.red},
-        {name: "Gray", id: DataService.colors.gray},
-        {name: "Blue", id: DataService.colors.blue},
-      ];
-      return colors;
+    const colors = [
+      { name: 'Green', id: DataService.colors.green },
+      { name: 'Yellow', id: DataService.colors.yellow },
+      { name: 'Red', id: DataService.colors.red },
+      { name: 'Gray', id: DataService.colors.gray },
+      { name: 'Blue', id: DataService.colors.blue },
+    ];
+    return colors;
   }
-
 }

@@ -6,7 +6,7 @@ import { EventListComponent } from './event-list/event-list.component';
 @Component({
   selector: 'app-second-home',
   standalone: true,
-  imports: [ EventsTableComponent, EventListComponent],
+  imports: [EventsTableComponent, EventListComponent],
   templateUrl: './second-home.component.html',
   styleUrl: './second-home.component.css',
 })
@@ -18,19 +18,23 @@ export class SecondHomeComponent implements OnInit {
     'title',
     'date',
     'time',
+    'description',
+    'location',
+
     'capacity',
-    'created_at',
- 
   ];
-  id = 1;
+  
+  //TODO: must be handled by seccion service
+  httpOptionsParams = {
+    id: '1',
+  };
   publicEventsDisplayedColumns: string[] = [
     'title',
     'date',
     'time',
-    'capacity',
-    'created_at',
     'description',
     'location',
+    'capacity',
   ];
   constructor(private httpProviderService: HttpProviderService) {}
 
@@ -41,10 +45,9 @@ export class SecondHomeComponent implements OnInit {
   }
 
   LoadMyEvents() {
-    this.httpProviderService.getEventByUserId(this.id).subscribe(
+    this.httpProviderService.getEventByUserId(this.httpOptionsParams).subscribe(
       (res) => {
         this.myEvents = res.body;
-        console.log('Compartiments:', this.myEvents);
       },
       (error) => {
         console.error('Error fetching compartiments:', error);
@@ -52,24 +55,24 @@ export class SecondHomeComponent implements OnInit {
     );
   }
   LoadPublicEvents() {
-    this.httpProviderService.getAllEvents().subscribe(
-      (res) => {
-        this.publicEvents = res.body;
-        console.log('Public Events:', this.publicEvents);
-      },
-      (error) => {
-        console.error('Error fetching public events:', error);
-      }
-    );
+    this.httpProviderService
+      .getAllPublicEvents(this.httpOptionsParams)
+      .subscribe(
+        (res) => {
+          this.publicEvents = res.body;
+        },
+        (error) => {
+          console.error('Error fetching public events:', error);
+        }
+      );
   }
-  LoadHistoricevents(){
-    this.httpProviderService.getHistoryEvents(this.id).subscribe(
+  LoadHistoricevents() {
+    this.httpProviderService.getHistoryEvents(this.httpOptionsParams).subscribe(
       (res) => {
         this.myEvents = res.body;
-        console.log('Compartiments:', this.myEvents);
       },
       (error) => {
-        console.error('Error fetching compartiments:', error);
+        console.error('Error fetching historic events', error);
       }
     );
   }

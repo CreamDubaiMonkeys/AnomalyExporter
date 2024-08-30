@@ -9,6 +9,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { Router, Routes } from '@angular/router';
 
 @Component({
   selector: 'events-table',
@@ -23,6 +24,8 @@ export class EventsTableComponent<T> implements OnInit, OnChanges {
   @Input() displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<T>();
 
+  constructor(private router: Router) {}
+
   ngOnInit() {
     this.initializeDataSource();
   }
@@ -35,10 +38,7 @@ export class EventsTableComponent<T> implements OnInit, OnChanges {
 
   initializeDataSource() {
     if (this.events) {
-      console.log('Events:', this.events);
-
       this.dataSource.data = this.events;
-
       this.dataSource.filterPredicate = (data: T, filter: string) => {
         const dataStr = Object.keys(data as object)
           .reduce((currentTerm, key) => {
@@ -62,5 +62,11 @@ export class EventsTableComponent<T> implements OnInit, OnChanges {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     console.log('Filter Value:', filterValue); // Log the filter value to verify
+  }
+
+  goToEventDetails(event: T) {
+    // logic to navigate to the event details page with the event id as param
+    this.router.navigate(['/event-details', (event as any).id]);
+    
   }
 }
