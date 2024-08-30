@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
 import { User } from '../interface/user';
+import { Event } from '../interface/event';
 
 @Component({
     selector: 'app-event-details',
@@ -17,7 +18,7 @@ import { User } from '../interface/user';
 export class EventDetailsComponent implements OnInit {
     route: ActivatedRoute = inject(ActivatedRoute);
     eventDetailId: number | null = null;
-    event: Object | null = null;
+    event: Event | null = null;
     participants: Array<User> = []
 
     constructor(private httpProviderService: HttpProviderService) {
