@@ -1,8 +1,14 @@
 package com.example.EventOrganizerBack.controllers;
 
 import com.example.EventOrganizerBack.dto.EventDto;
+import com.example.EventOrganizerBack.dto.EventWithUsersDto;
 import com.example.EventOrganizerBack.model.Event;
+import com.example.EventOrganizerBack.model.User;
+import com.example.EventOrganizerBack.model.UserEvent;
 import com.example.EventOrganizerBack.services.EventService;
+
+import java.util.List;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +64,13 @@ public class EventController {
     public ResponseEntity<Object> getEventById(@PathVariable Integer id) {
         try{
             Event event = eventService.getEventById(id);
-            return new ResponseEntity<>(event, org.springframework.http.HttpStatus.OK);
+            List<User> participants = new ArrayList<>();
+            for(UserEvent userEvent: event.getUserEvents()) {
+                participants.add(userEvent.getUser());
+            }
+
+            EventWithUsersDto eventWithUsers = new EventWithUsersDto(event, participants);
+            return new ResponseEntity<>(eventWithUsers, org.springframework.http.HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error while getting event");
         }

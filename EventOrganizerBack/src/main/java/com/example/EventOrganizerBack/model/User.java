@@ -1,6 +1,8 @@
 package com.example.EventOrganizerBack.model;
 
 import com.example.EventOrganizerBack.constants.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -47,6 +49,7 @@ public class User {
     @OneToMany(mappedBy = "author")
     private List <Comment> comments;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List <UserEvent> userEvents;
 

@@ -1,0 +1,14 @@
+.event-card {
+    max-width: 600px;
+    margin: 20px auto;
+  }
+  
+  .event-info p {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  mat-icon {
+    margin-right: 8px;
+  }
