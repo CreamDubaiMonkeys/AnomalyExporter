@@ -54,7 +54,6 @@ export class SecondHomeComponent implements OnInit {
     this.httpProviderService.getAllPublicEvents(this.id).subscribe(
       (res) => {
         this.publicEvents = res.body;
-        console.log('Public Events:', this.publicEvents);
       },
       (error) => {
         console.error('Error fetching public events:', error);
@@ -65,7 +64,6 @@ export class SecondHomeComponent implements OnInit {
     this.httpProviderService.getHistoryEvents(this.id).subscribe(
       (res) => {
         this.myEvents = res.body;
-        console.log('Compartiments:', this.myEvents);
       },
       (error) => {
         console.error('Error fetching historic events', error);
