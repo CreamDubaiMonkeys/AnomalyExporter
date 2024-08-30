@@ -33,8 +33,9 @@ export class InscriptionComponent {
 
         this.httpProviderService.postUserSubscribe(userToRegister).subscribe(
             (res) => {
-                console.log('User registered:', res);
-                this.authService.login();
+                console.log('User registered:', res.body);
+                const payload = res.body.data
+                this.authService.login(payload.id, payload.username);
                 this.router.navigate(['/calendar']);
             },
             (error) => {
