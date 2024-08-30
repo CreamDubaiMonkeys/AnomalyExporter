@@ -17,10 +17,10 @@ export class HttpProviderService {
   getAllPublicEvents(id: number) {
     return this.webApiService.get(this.httpLinks.getAllPublicEvents, id);
   }
-  getEventById(id: number) {
+  getEventByUserId(id: number) {
     return this.webApiService.get(this.httpLinks.getAllEvents, id);
   }
   getHistoryEvents(id: number) {
-    return this.webApiService.get(this.httpLinks.getAllEvents , id);
+    return this.webApiService.get(this.httpLinks.getHistoryEvents, id);
   }
 }

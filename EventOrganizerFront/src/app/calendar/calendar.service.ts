@@ -22,7 +22,7 @@ export class DataService {
   eventConverter(myEvent: any, events: any) {
     for (let i = 0; i < myEvent.length; i++) {
       events.push(this.convertEvent(myEvent[i]));
-      console.log("pushed event:", this.convertEvent(myEvent[i]));
+      console.log('pushed event:', this.convertEvent(myEvent[i]));
     }
     return events;
   }
@@ -50,17 +50,15 @@ export class DataService {
       backColor: DataService.colors.green,
       participants: 1,
     },
-  
   ];
 
   constructor(private httpProvider: HttpProviderService) {}
 
   getEvents(from: DayPilot.Date, to: DayPilot.Date): Observable<any[]> {
-    this.httpProvider.getEventById(1).subscribe(
+    this.httpProvider.getEventByUserId(1).subscribe(
       (res: any) => {
         this.myEvents = res.body;
-        this.myEvents=this.eventConverter(this.myEvents, this.events);
-      
+        this.myEvents = this.eventConverter(this.myEvents, this.events);
       },
       (error) => {
         console.error('Error fetching compartiments:', error);
@@ -68,7 +66,7 @@ export class DataService {
     );
     return new Observable((observer) => {
       setTimeout(() => {
-        observer.next( this.myEvents  );
+        observer.next(this.myEvents);
       }, 200);
     });
   }
