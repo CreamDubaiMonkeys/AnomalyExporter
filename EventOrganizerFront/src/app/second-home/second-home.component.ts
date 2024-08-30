@@ -18,18 +18,19 @@ export class SecondHomeComponent implements OnInit {
     'title',
     'date',
     'time',
+    'description',
+    'location',
+
     'capacity',
-    'created_at',
   ];
   id = 1;
   publicEventsDisplayedColumns: string[] = [
     'title',
     'date',
     'time',
-    'capacity',
-    'created_at',
     'description',
     'location',
+    'capacity',
   ];
   constructor(private httpProviderService: HttpProviderService) {}
 
