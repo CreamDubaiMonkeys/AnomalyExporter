@@ -1,1 +1,12 @@
-<calendar-component></calendar-component>
+<mat-tab-group dynamicHeight>
+      <mat-tab label="Calendrier">
+        <div class="calendar">
+            <calendar-component></calendar-component>
+        </div>
+      </mat-tab>
+      <mat-tab label="Liste">
+        <div>
+          <app-list-event></app-list-event>
+        </div>
+      </mat-tab>
+    </mat-tab-group>

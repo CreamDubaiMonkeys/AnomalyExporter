@@ -4,13 +4,13 @@ import { EventsTableComponent } from './events-table/events-table.component';
 import { EventListComponent } from './event-list/event-list.component';
 
 @Component({
-  selector: 'app-second-home',
+  selector: 'app-list-event',
   standalone: true,
   imports: [EventsTableComponent, EventListComponent],
-  templateUrl: './second-home.component.html',
-  styleUrl: './second-home.component.css',
+  templateUrl: './list-event.component.html',
+  styleUrl: './list-event.component.css',
 })
-export class SecondHomeComponent implements OnInit {
+export class ListEventComponent implements OnInit {
   myEvents: any[] = [];
   publicEvents: any[] = [];
   historyEvents: any[] = [];
