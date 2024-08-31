@@ -65,8 +65,6 @@ export class EventsTableComponent<T> implements OnInit, OnChanges {
   }
 
   goToEventDetails(event: T) {
-    // logic to navigate to the event details page with the event id as param
-    this.router.navigate(['/event-details', (event as any).id]);
-    
+    this.router.navigate(['event/', (event as any).id]);
   }
 }
