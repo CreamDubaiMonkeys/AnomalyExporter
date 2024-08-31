@@ -42,4 +42,7 @@ export class HttpProviderService {
   postUserLogin(data: LoginUser){
     return this.webApiService.post(this.httpLinks.authBaseUrl + '/login', data)
   }
+  postEvent(data: any){
+  
+  }
 }
