@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.EventOrganizerBack.model.User;
 import com.example.EventOrganizerBack.repository.UserRepository;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,5 +25,9 @@ public class UserServiceImpl implements UserService {
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username).orElse(null);
     }
-    
+
+    @Override
+    public List<String> getUserNames() {
+        return userRepository.findAll().stream().map(User::getUsername).toList();
+    }
 }
