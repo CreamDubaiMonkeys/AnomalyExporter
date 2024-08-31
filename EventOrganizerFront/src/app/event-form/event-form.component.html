@@ -1,49 +1,109 @@
 <div class="form-wrapper">
-    <mat-card class="event-card">
-      <h3>Créer un événement</h3>
+  <mat-card class="event-card">
+    <h3>Créer un événement</h3>
     <mat-card-content>
       <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline">
           <mat-label>Titre</mat-label>
-          <input matInput formControlName="title" placeholder="Event Title" required>
-          <mat-error *ngIf="eventForm.get('title')?.invalid">Le titre est requis</mat-error>
+          <input
+            matInput
+            formControlName="title"
+            placeholder="Event Title"
+            required
+          />
+          <mat-error *ngIf="eventForm.get('title')?.invalid"
+            >Le titre est requis</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Description</mat-label>
-          <textarea matInput formControlName="description" placeholder="Event Description" required></textarea>
-          <mat-error *ngIf="eventForm.get('description')?.invalid">La description est requise</mat-error>
+          <textarea
+            matInput
+            formControlName="description"
+            placeholder="Event Description"
+            required
+          ></textarea>
+          <mat-error *ngIf="eventForm.get('description')?.invalid"
+            >La description est requise</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Date</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="date" required>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="date"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngIf="eventForm.get('date')?.invalid">Date is required</mat-error>
+          <mat-error *ngIf="eventForm.get('date')?.invalid"
+            >Date is required</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Heure</mat-label>
-          <input matInput type="time" formControlName="time" required>
-          <mat-error *ngIf="eventForm.get('time')?.invalid">Time is required</mat-error>
+          <input matInput type="time" formControlName="time" required />
+          <mat-error *ngIf="eventForm.get('time')?.invalid"
+            >Time is required</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Lieu</mat-label>
-          <input matInput formControlName="location" placeholder="Event Location" required>
-          <mat-error *ngIf="eventForm.get('location')?.invalid">Le lieu de l'événement est requis</mat-error>
+          <input
+            matInput
+            formControlName="location"
+            placeholder="Event Location"
+            required
+          />
+          <mat-error *ngIf="eventForm.get('location')?.invalid"
+            >Le lieu de l'événement est requis</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Capacité</mat-label>
-          <input matInput type="number" formControlName="capacity" placeholder="Number of Attendees" required>
-          <mat-error *ngIf="eventForm.get('capacity')?.invalid">La capacité de l'événement doit être supérieure à 0</mat-error>
+          <input
+            matInput
+            type="number"
+            formControlName="capacity"
+            placeholder="Number of Attendees"
+            required
+          />
+          <mat-error *ngIf="eventForm.get('capacity')?.invalid"
+            >La capacité de l'événement doit être supérieure à 0</mat-error
+          >
+        </mat-form-field>
+        <!-- add pick list of participents -->
+        <mat-form-field appearance="outline">
+          <mat-label>Participants</mat-label>
+          <mat-select formControlName="participents" multiple>
+            <mat-option
+              *ngFor="let participant of participentList"
+              [value]="participant"
+            >
+              {{ participant }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-checkbox formControlName="private">Evénement Privé</mat-checkbox>
 
-        <button mat-raised-button color="primary" type="submit" [disabled]="!eventForm.valid">Créer</button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!eventForm.valid"
+        >
+          Créer
+        </button>
       </form>
     </mat-card-content>
   </mat-card>

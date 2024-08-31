@@ -1,5 +1,6 @@
 package com.example.EventOrganizerBack.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,10 +12,12 @@ public class NotificationUser {
 
     @ManyToOne
     @JoinColumn(name = "notification_id" , referencedColumnName = "id")
+    @JsonBackReference
     private Notification notification;
 
     @ManyToOne
     @JoinColumn(name = "receiver_id" , referencedColumnName = "id")
+    @JsonBackReference
     private User receiver;
 
     private Boolean is_read;

@@ -30,4 +30,9 @@ public class UserServiceImpl implements UserService {
     public List<String> getUserNames() {
         return userRepository.findAll().stream().map(User::getUsername).toList();
     }
+
+    @Override
+    public User getUserById(Integer id) {
+        return userRepository.findById(id).orElse(null);
+    }
 }
