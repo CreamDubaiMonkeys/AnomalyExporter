@@ -4,6 +4,8 @@ import { NgForm, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthentificationService } from '../service/authentification.service';
 import { Router } from '@angular/router';
+import { LoginUser } from '../interface/user';
+import { HttpProviderService } from '../service/http-provider.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -13,11 +15,26 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   
-  constructor(private router: Router, private authenService : AuthentificationService) {}
+  constructor(private router: Router, private authService : AuthentificationService, private httpProviderService: HttpProviderService) {}
   onSubmit(form: NgForm) {
-    console.log(form.value);
-    this.authenService.login();
-    this.router.navigate(['/calendar']);
+    const user: LoginUser = {
+        identifier: form.value.mail,
+        password: form.value.password
+    }
+
+    this.httpProviderService.postUserLogin(user).subscribe(
+        (res)=>{
+            console.log('User logged in:', res.body);
+            const payload = res.body.data
+            this.authService.login(payload.id, payload.username);
+            this.router.navigate(['/calendar']);
+        },
+        (error)=>{
+            console.error('Error while logging in:', error)
+        }
+    )
+
+    
   }
 
 }

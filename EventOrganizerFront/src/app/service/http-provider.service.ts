@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { WebApiService } from './web-api.service';
-import { RegisterUser } from '../interface/user';
+import { LoginUser, RegisterUser } from '../interface/user';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +11,7 @@ export class HttpProviderService {
     getEvent: this.baseUrl + '/events',
     getAllEvents: this.baseUrl + '/events/all',
     getAllPublicEvents: this.baseUrl + '/events/all_public_events_except_mine',
+    authBaseUrl: this.baseUrl + '/auth',
   };
 
   constructor(private webApiService: WebApiService) {}
@@ -36,6 +37,9 @@ export class HttpProviderService {
     );
   }
   postUserSubscribe(data: RegisterUser) {
-    return this.webApiService.post(this.baseUrl + '/auth/register', data);
+    return this.webApiService.post(this.httpLinks.authBaseUrl + '/register', data);
+  }
+  postUserLogin(data: LoginUser){
+    return this.webApiService.post(this.httpLinks.authBaseUrl + '/login', data)
   }
 }
