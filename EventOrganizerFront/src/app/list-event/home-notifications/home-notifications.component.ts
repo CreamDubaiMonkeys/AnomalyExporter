@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { AuthentificationService } from '../../service/authentification.service';
+import { HttpProviderService } from '../../service/http-provider.service';
 export interface Notification {
   id: number;
   type: string;
@@ -17,36 +19,33 @@ export interface Notification {
   templateUrl: './home-notifications.component.html',
   styleUrl: './home-notifications.component.css',
 })
-export class HomeNotificationsComponent {
+export class HomeNotificationsComponent implements OnInit {
+  httpOptionsParams = {
+    id: '',
+  };
   notifications: Notification[] = [
-    {
-      id: 1,
-      type: 'invitation',
-      emitter: 'John Doe',
-      eventTitle: 'Event 1',
-      date: '2021-10-10',
-      time: '10:00:00',
-    },
-    {
-      id: 2,
-      type: 'invitation',
-      emitter: 'Jane Doe',
-      eventTitle: 'Event 2',
-      date: '2021-10-10',
-      time: '10:00:00',
-    },
-    {
-      id: 3,
-      type: 'invitation',
-      emitter: 'Jade Doe',
-      eventTitle: 'Event 3',
-      date: '2021-10-10',
-      time: '10:00:00',
-    },
+    
   ];
-
-  constructor() {}
-  initialiseNotifications() {}
+  ngOnInit(): void {
+    this.httpOptionsParams.id = this.authService.getId().toString();
+    this.initialiseNotifications();
+  }
+  constructor(
+    private httpProviderService: HttpProviderService,
+    private authService: AuthentificationService
+  ) {}
+  initialiseNotifications() {
+    this.httpProviderService
+      .getMyNotifications(this.httpOptionsParams)
+      .subscribe(
+        (res) => {
+          this.notifications = res.body;
+        },
+        (error) => {
+          console.error('Error fetching notifications:', error);
+        }
+      );
+  }
   deleteNotification(notification: Notification) {
     console.log('Deleted Notification:', notification);
     this.notifications.splice(this.notifications.indexOf(notification), 1);
