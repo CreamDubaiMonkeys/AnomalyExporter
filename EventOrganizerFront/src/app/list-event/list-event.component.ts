@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpProviderService } from '../service/http-provider.service';
 import { EventsTableComponent } from './events-table/events-table.component';
 import { EventListComponent } from './event-list/event-list.component';
+import { AuthentificationService } from '../service/authentification.service';
 
 @Component({
   selector: 'app-list-event',
@@ -23,10 +24,10 @@ export class ListEventComponent implements OnInit {
 
     'capacity',
   ];
-  
+
   //TODO: must be handled by seccion service
   httpOptionsParams = {
-    id: '1',
+    id: '',
   };
   publicEventsDisplayedColumns: string[] = [
     'title',
@@ -36,12 +37,16 @@ export class ListEventComponent implements OnInit {
     'location',
     'capacity',
   ];
-  constructor(private httpProviderService: HttpProviderService) {}
+  constructor(
+    private httpProviderService: HttpProviderService,
+    private authService: AuthentificationService) {}
 
   ngOnInit(): void {
+    this.httpOptionsParams.id = this.authService.getId().toString();
     this.LoadMyEvents();
     this.LoadPublicEvents();
     this.LoadHistoricevents();
+    
   }
 
   LoadMyEvents() {

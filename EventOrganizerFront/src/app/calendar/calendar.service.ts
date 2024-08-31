@@ -1,20 +1,19 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DayPilot } from '@daypilot/daypilot-lite-angular';
 import { HttpProviderService } from '../service/http-provider.service';
+import { AuthentificationService } from '../service/authentification.service';
 
 @Injectable()
-export class DataService {
-
+export class DataService  {
   //TODO: must be handled by seccion service
-  httpOptionsParams = {
-    id: '1',
-  };
+
   myEvents: any[] = [];
 
-
   convertEvent(myEvent: any) {
-    const finalEndDate = new DayPilot.Date(new Date(myEvent.date + 'T' + myEvent.time)).addHours(5); 
+    const finalEndDate = new DayPilot.Date(
+      new Date(myEvent.date + 'T' + myEvent.time)
+    ).addHours(5);
     return {
       id: myEvent.id,
       text: myEvent.title,
@@ -40,10 +39,18 @@ export class DataService {
     blue: '#2e78d6',
   };
 
-  constructor(private httpProvider: HttpProviderService) {}
+  constructor(
+    private httpProvider: HttpProviderService,
+    private authService: AuthentificationService
+  ) {}
 
-  getEvents(from: DayPilot.Date, to: DayPilot.Date): Observable<any[]> {
-    this.httpProvider.getEventByUserId(this.httpOptionsParams).subscribe(
+
+  getEvents(
+    from: DayPilot.Date,
+    to: DayPilot.Date,
+    httpOptionsParams:any
+  ): Observable<any[]> {
+    this.httpProvider.getEventByUserId(httpOptionsParams).subscribe(
       (res: any) => {
         this.myEvents = this.eventListConverter(res.body);
       },
