@@ -25,4 +25,7 @@ export class AuthentificationService {
     getUsername(): string {
         return String (localStorage.getItem("sessionUserName"));
     }
+    getId(): number {
+        return Number(localStorage.getItem("sessionUserId"));
+    }
 }
