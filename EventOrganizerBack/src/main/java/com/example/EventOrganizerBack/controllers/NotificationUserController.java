@@ -19,9 +19,9 @@ public class NotificationUserController {
     }
 
     @GetMapping("/notifications")
-    public ResponseEntity<Object> getNotifications(@RequestParam Integer userId) {
+    public ResponseEntity<Object> getNotifications(@RequestParam Integer id) {
         try {
-            return ResponseEntity.ok(notificationUserService.getAllNotificationsByUserId(userId));
+            return ResponseEntity.ok(notificationUserService.getAllNotificationsByUserId(id));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e);
         }
