@@ -1,5 +1,4 @@
-export interface Event {
-    id: number,
+export interface BaseEvent{
     capacity: number,
     date: string,
     time: string,
@@ -7,6 +6,14 @@ export interface Event {
     title: string,
     is_private: boolean,
     location: string,
+}
+
+export interface Event extends BaseEvent {
+    id: number,
     created_at: string,
     updated_at: string
+}
+
+export interface RegisterEvent extends BaseEvent {
+    creatorId: number,
 }

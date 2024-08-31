@@ -1,0 +1,16 @@
+<mat-list class="notificationList" role="list">
+    <mat-list-item lines="4" role="listitem" *ngFor="let notification of notifications">
+        <span  mat-line *ngIf="notification.type == 'invitation'">
+            
+            <p><b>{{notification.emitter}}</b> has invited you to their event</p>
+            <p>taking place the <b>{{notification.date}}</b> at <b>{{notification.time}}</b></p>
+        </span>
+        <h6 mat-line *ngIf="notification.type == 'reminder'">
+            
+            your event {{notification.eventTitle}} at {{notification.date}} coming soon</h6>
+        <button mat-icon-button mat-list-avatar 
+        (click)="deleteNotification(notification)">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-list-item>
+</mat-list>
