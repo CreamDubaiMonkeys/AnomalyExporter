@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, rgb(16, 16, 16), white);
+    background: linear-gradient(to bottom, rgb(151, 154, 231), white);
   }
   
   .login-card {
