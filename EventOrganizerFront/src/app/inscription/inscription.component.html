@@ -1,10 +1,8 @@
-<div class="inscription-card">
-    <mat-card>
+<div class="form-container">
+    <mat-card class="register-card">
         <mat-card-header>
             <mat-card-title>Inscription</mat-card-title>
         </mat-card-header>
-
-        <!-- Wrap the fields in a form and use (ngSubmit) for form submission -->
         <form #form="ngForm" (ngSubmit)="onSubmit(form)">
             <mat-card-content>
                 <mat-form-field appearance="outline">
@@ -45,8 +43,9 @@
             </mat-card-content>
             <mat-card-actions>
                 <button mat-flat-button type="submit">S'inscrire</button>
-                <p>Vous avez un compte ? <a [routerLink]="['/']">Connectez-vous</a></p>
             </mat-card-actions>
+            <p>Vous avez un compte ? <a [routerLink]="['/']">Connectez-vous</a></p>
+            <mat-card-actions></mat-card-actions>
         </form>
     </mat-card>
 </div>

@@ -22,4 +22,7 @@ export class AuthentificationService {
         return Boolean(localStorage.getItem('sessionUserName') && localStorage.getItem('sessionUserId'));
     }
 
+    getUsername(): string {
+        return String (localStorage.getItem("sessionUserName"));
+    }
 }
