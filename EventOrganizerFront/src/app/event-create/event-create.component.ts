@@ -61,7 +61,11 @@ throw new Error('Method not implemented.');
     'user20@example.com'
   ];
 
-
+  EventOrganizerFront() {
+    
+    this.confirmationMessage = 'Event created successfully';
+  }
+  
   constructor(private eventService: HttpProviderService) { }
 
   onSubmit(form: NgForm): void {
