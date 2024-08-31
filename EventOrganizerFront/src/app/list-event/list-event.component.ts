@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { HttpProviderService } from '../service/http-provider.service';
 import { EventsTableComponent } from './events-table/events-table.component';
 import { EventListComponent } from './event-list/event-list.component';
+import { HomeNotificationsComponent } from './home-notifications/home-notifications.component';
 
 @Component({
   selector: 'app-list-event',
   standalone: true,
-  imports: [EventsTableComponent, EventListComponent],
+  imports: [EventsTableComponent, HomeNotificationsComponent],
   templateUrl: './list-event.component.html',
   styleUrl: './list-event.component.css',
 })
