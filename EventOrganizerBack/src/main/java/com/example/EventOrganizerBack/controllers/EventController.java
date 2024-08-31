@@ -1,14 +1,22 @@
 package com.example.EventOrganizerBack.controllers;
 
+import com.example.EventOrganizerBack.constants.NotificationType;
 import com.example.EventOrganizerBack.dto.EventDto;
+import com.example.EventOrganizerBack.dto.EventWithParticipentListDto;
 import com.example.EventOrganizerBack.dto.EventWithUsersDto;
+import com.example.EventOrganizerBack.dto.NotificationDto;
 import com.example.EventOrganizerBack.model.Event;
+import com.example.EventOrganizerBack.model.Notification;
 import com.example.EventOrganizerBack.model.User;
 import com.example.EventOrganizerBack.model.UserEvent;
 import com.example.EventOrganizerBack.services.EventService;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import com.example.EventOrganizerBack.services.NotificationService;
+import com.example.EventOrganizerBack.services.NotificationUserService;
+import com.example.EventOrganizerBack.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,33 +26,54 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/events")
 public class EventController {
     private final EventService eventService;
+    private final NotificationService notificationService;
+    private final UserService userService;
+    private final NotificationUserService notificationUserService;
 
     @Autowired
-    public EventController(EventService eventService) {
+    public EventController(EventService eventService,
+                           NotificationService notificationService,
+                           UserService userService,
+                           NotificationUserService notificationUserService) {
         this.eventService = eventService;
+        this.notificationService = notificationService;
+        this.userService = userService;
+        this.notificationUserService = notificationUserService;
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Object> createEvent(@RequestBody EventDto eventDto) {
-                /*
-        * Note important :
-        * run a post request to add user before running a post request to add event
-        * and use this json format for the post request
-        *
-        {
-        "creatorId": 1,
-        "description": "description",
-        "date": "2021-05-05",
-        "time": "12:00:00",
-        "capacity": 10,
-        "is_private": false,
-        "title": "titre",
-        "location":"location"
-        }
+    public ResponseEntity<Object> createEvent(@RequestBody EventWithParticipentListDto eventWithParticipentListDto) {
 
-        * */
         try{
+
+            EventDto eventDto = new EventDto();
+            eventDto.setCreatorId(eventWithParticipentListDto.getCreatorId());
+            eventDto.setDescription(eventWithParticipentListDto.getDescription());
+            eventDto.setDate(eventWithParticipentListDto.getDate());
+            eventDto.setTime(eventWithParticipentListDto.getTime());
+            eventDto.setCapacity(eventWithParticipentListDto.getCapacity());
+            eventDto.setIs_private(eventWithParticipentListDto.getIs_private());
+            eventDto.setTitle(eventWithParticipentListDto.getTitle());
+            eventDto.setLocation(eventWithParticipentListDto.getLocation());
+
+
+            List <String> participents = eventWithParticipentListDto.getParticipents();
+
             Event createdEvent = eventService.createEvent(eventDto);
+            //creat notification using notification service
+            NotificationDto notificationDto = new NotificationDto();
+            notificationDto.setEvent(createdEvent);
+            notificationDto.setType(NotificationType.INVITATION);
+            // create Timestamp for now
+            notificationDto.setCreated_at(new java.sql.Timestamp(System.currentTimeMillis()));
+            notificationDto.setEmitter( userService.getUserById(eventWithParticipentListDto.getCreatorId()));
+            //create notification
+            Notification notification = notificationService.createNotification(notificationDto);
+            //loop through participents and create notificationUser for each
+            for(String participent: participents) {
+                Integer userId = userService.getUserByUsername(participent).getId();
+                notificationUserService.createNotificationUser(notification, userId);
+            }
             return new ResponseEntity<>(createdEvent, org.springframework.http.HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error while creating event");

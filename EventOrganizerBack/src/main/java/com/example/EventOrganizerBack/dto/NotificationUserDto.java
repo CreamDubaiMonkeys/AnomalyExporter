@@ -1,6 +1,6 @@
 package com.example.EventOrganizerBack.dto;
 
-public class EventUserDto {
+public class NotificationUserDto {
     //the response object for the event user
     //  type: string;
     //  emitter: string;

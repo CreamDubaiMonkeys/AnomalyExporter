@@ -1,6 +1,7 @@
 package com.example.EventOrganizerBack.model;
 
 import com.example.EventOrganizerBack.constants.NotificationType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -15,14 +16,17 @@ public class Notification {
     private Integer id;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "emitter_id" , referencedColumnName = "id")
     private User emitter; //
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "event_id" , referencedColumnName = "id")
     private Event event; //
 
     @OneToMany(mappedBy = "notification")
+    @JsonBackReference
     private List<NotificationUser> notificationUsers;
 
     private Timestamp created_at;
