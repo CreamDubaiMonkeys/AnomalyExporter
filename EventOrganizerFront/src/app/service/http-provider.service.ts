@@ -13,6 +13,7 @@ export class HttpProviderService {
     getAllEvents: this.baseUrl + '/events/all',
     getAllPublicEvents: this.baseUrl + '/events/all_public_events_except_mine',
     authBaseUrl: this.baseUrl + '/auth',
+    getAllUserNames: this.baseUrl + '/users/user_names',
   };
 
   constructor(private webApiService: WebApiService) {}
@@ -24,7 +25,10 @@ export class HttpProviderService {
     );
   }
   getEventByUserId(httpOptionsParams: any) {
-    return this.webApiService.get(this.httpLinks.getAllEvents, httpOptionsParams);
+    return this.webApiService.get(
+      this.httpLinks.getAllEvents,
+      httpOptionsParams
+    );
   }
   getHistoryEvents(httpOptionsParams: any) {
     return this.webApiService.get(
@@ -33,18 +37,26 @@ export class HttpProviderService {
     );
   }
   getEventById(id: number) {
-    return this.webApiService.get(
-      this.httpLinks.eventBaseUrl + '/' + id
-    );
+    return this.webApiService.get(this.httpLinks.eventBaseUrl + '/' + id);
   }
-  postUserSubscribe(data: RegisterUser) {
-    return this.webApiService.post(this.httpLinks.authBaseUrl + '/register', data);
-  }
-  postUserLogin(data: LoginUser){
-    return this.webApiService.post(this.httpLinks.authBaseUrl + '/login', data)
+  getParticipents(httpOptionsParams: any) {
+    return this.webApiService.get(this.httpLinks.getAllUserNames,httpOptionsParams);
   }
 
-  postEvent(data: RegisterEvent){
-    return this.webApiService.post(this.httpLinks.eventBaseUrl + "/create", data)
+  postUserSubscribe(data: RegisterUser) {
+    return this.webApiService.post(
+      this.httpLinks.authBaseUrl + '/register',
+      data
+    );
+  }
+  postUserLogin(data: LoginUser) {
+    return this.webApiService.post(this.httpLinks.authBaseUrl + '/login', data);
+  }
+
+  postEvent(data: RegisterEvent) {
+    return this.webApiService.post(
+      this.httpLinks.eventBaseUrl + '/create',
+      data
+    );
   }
 }

@@ -6,6 +6,7 @@ export interface BaseEvent{
     title: string,
     is_private: boolean,
     location: string,
+    participents: string[]
 }
 
 export interface Event extends BaseEvent {
