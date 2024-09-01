@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { WebApiService } from './web-api.service';
-import { LoginUser, RegisterUser } from '../interface/user';
+import { LoginUser, RegisterUser, User } from '../interface/user';
 import { RegisterEvent } from '../interface/event';
 
 @Injectable({
@@ -68,5 +68,9 @@ export class HttpProviderService {
       this.httpLinks.eventBaseUrl + '/create',
       data
     );
+  }
+
+  postUserEvent(eventId: number, userId: number){
+    return this.webApiService.post(this.httpLinks.eventBaseUrl + '/' + eventId + '/add-participant/' + userId, null)
   }
 }

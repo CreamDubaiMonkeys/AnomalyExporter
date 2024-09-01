@@ -20,7 +20,7 @@ import { MatButton } from '@angular/material/button';
 export class EventDetailsComponent implements OnInit {
     route: ActivatedRoute = inject(ActivatedRoute);
     eventDetailId: number | null = null;
-    event: Event | null = null;
+    event!: Event;
     participants: Array<User> = []
 
     constructor(private httpProviderService: HttpProviderService, private sessionService: AuthentificationService) {
@@ -52,5 +52,18 @@ export class EventDetailsComponent implements OnInit {
 
     userIsEventCreator(): boolean {
         return this.event?.creator.id === this.sessionService.getId()
+    }
+
+    onParticipate(): void {
+        this.httpProviderService.postUserEvent(this.event?.id, this.sessionService.getId()).subscribe(
+            (res)=>{
+                console.log(res.body)
+                this.ngOnInit()
+
+            },
+            (error)=>{
+                console.log(error)
+            }
+        )
     }
 }
