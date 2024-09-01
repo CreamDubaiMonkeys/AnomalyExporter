@@ -44,9 +44,9 @@ public class NotificationUserServiceImpl implements NotificationUserService {
         List<NotificationUserDto> notificationDtos = new ArrayList<>();
        for(NotificationUser notificationUser : notificationUsers){
             //if the emmitter is the same as the receiver, we don't want to show the notification
-            if(Objects.equals(notificationUser.getNotification().getEmitter().getId(), userId)){
+            /*if(Objects.equals(notificationUser.getNotification().getEmitter().getId(), userId)){
                 continue;
-            }
+            }*/
             User emitter = notificationUser.getNotification().getEmitter();
             Event event = notificationUser.getNotification().getEvent();
             LocalDateTime created_at = notificationUser.getNotification().getCreated_at().toLocalDateTime();

@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { AuthentificationService } from '../../service/authentification.service';
 import { HttpProviderService } from '../../service/http-provider.service';
+import { Notification } from '../../interface/Notification';
 
 @Component({
   selector: 'app-notification-list',
