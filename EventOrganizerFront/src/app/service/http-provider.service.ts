@@ -14,6 +14,7 @@ export class HttpProviderService {
     getAllPublicEvents: this.baseUrl + '/events/all_public_events_except_mine',
     authBaseUrl: this.baseUrl + '/auth',
     getAllUserNames: this.baseUrl + '/users/user_names',
+    myNotification: this.baseUrl + '/notifications',
   };
 
   constructor(private webApiService: WebApiService) {}
@@ -40,7 +41,16 @@ export class HttpProviderService {
     return this.webApiService.get(this.httpLinks.eventBaseUrl + '/' + id);
   }
   getParticipents(httpOptionsParams: any) {
-    return this.webApiService.get(this.httpLinks.getAllUserNames,httpOptionsParams);
+    return this.webApiService.get(
+      this.httpLinks.getAllUserNames,
+      httpOptionsParams
+    );
+  }
+  getMyNotifications(httpOptionsParams: any) {
+    return this.webApiService.get(
+      this.httpLinks.myNotification,
+      httpOptionsParams
+    );
   }
 
   postUserSubscribe(data: RegisterUser) {

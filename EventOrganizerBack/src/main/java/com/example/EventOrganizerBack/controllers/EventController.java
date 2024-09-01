@@ -13,6 +13,7 @@ import com.example.EventOrganizerBack.services.EventService;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.example.EventOrganizerBack.services.NotificationService;
 import com.example.EventOrganizerBack.services.NotificationUserService;
@@ -72,6 +73,10 @@ public class EventController {
             //loop through participents and create notificationUser for each
             for(String participent: participents) {
                 Integer userId = userService.getUserByUsername(participent).getId();
+                //if participent is the same as the creator, we don't want to write the notification
+                if (Objects.equals(userId, eventWithParticipentListDto.getCreatorId())) {
+                    continue;
+                }
                 notificationUserService.createNotificationUser(notification, userId);
             }
             return new ResponseEntity<>(createdEvent, org.springframework.http.HttpStatus.CREATED);

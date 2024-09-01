@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class NotificationUserServiceImpl implements NotificationUserService {
@@ -42,12 +43,14 @@ public class NotificationUserServiceImpl implements NotificationUserService {
 
         List<NotificationUserDto> notificationDtos = new ArrayList<>();
        for(NotificationUser notificationUser : notificationUsers){
-
+            //if the emmitter is the same as the receiver, we don't want to show the notification
+            /*if(Objects.equals(notificationUser.getNotification().getEmitter().getId(), userId)){
+                continue;
+            }*/
             User emitter = notificationUser.getNotification().getEmitter();
             Event event = notificationUser.getNotification().getEvent();
             LocalDateTime created_at = notificationUser.getNotification().getCreated_at().toLocalDateTime();
             NotificationType type = notificationUser.getNotification().getType();
-
             NotificationUserDto notificationUserDto = new NotificationUserDto();
             notificationUserDto.setEmitter(emitter.getUsername());
             notificationUserDto.setDate(created_at.toLocalDate().toString());
