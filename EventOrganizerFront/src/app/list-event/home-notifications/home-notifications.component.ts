@@ -4,14 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { AuthentificationService } from '../../service/authentification.service';
 import { HttpProviderService } from '../../service/http-provider.service';
-export interface Notification {
-  id: number;
-  type: string;
-  emitter: string;
-  eventTitle: string;
-  date: string;
-  time: string;
-}
+
 @Component({
   selector: 'app-notification-list',
   standalone: true,
