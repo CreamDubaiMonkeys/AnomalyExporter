@@ -17,7 +17,7 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "created_by" , referencedColumnName = "id")
-    @JsonBackReference
+    // @JsonBackReference
     private User creator;
 
     @Lob

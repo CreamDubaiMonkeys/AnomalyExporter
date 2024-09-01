@@ -1,6 +1,7 @@
 package com.example.EventOrganizerBack.model;
 
 import com.example.EventOrganizerBack.constants.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -43,19 +44,23 @@ public class User {
     //Role
     private Role role;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "emitter")
     private List <Notification> notifications;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "author")
     private List <Comment> comments;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List <UserEvent> userEvents;
-
+    
+    @JsonIgnore
     @OneToMany(mappedBy = "creator")
     private List <Event> events;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "receiver")
     private List <NotificationUser> notificationUsers;
 
