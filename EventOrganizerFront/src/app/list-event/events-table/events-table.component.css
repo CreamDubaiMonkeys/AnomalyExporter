@@ -1,10 +1,22 @@
 /* give the .event_table a max width of 60% */
 .event_table {
-  max-width: 100%;
+    max-width: 100%;
 }
+
 .event_table th {
-  background-color: #bb93935b;
+    background-color: #bb93935b;
 }
-.filter_input{
-  width: 100%;
+
+.filter_input {
+    width: 100%;
+}
+
+.clickable-row {
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.clickable-row:hover {
+    background-color: #e0f7fa;
+    transform: scale(1.15);
 }
