@@ -9,6 +9,7 @@ import com.example.EventOrganizerBack.model.Event;
 import com.example.EventOrganizerBack.model.Notification;
 import com.example.EventOrganizerBack.model.User;
 import com.example.EventOrganizerBack.model.UserEvent;
+import com.example.EventOrganizerBack.repository.UserEventRepository;
 import com.example.EventOrganizerBack.services.EventService;
 
 import java.util.List;
@@ -17,8 +18,10 @@ import java.util.Objects;
 
 import com.example.EventOrganizerBack.services.NotificationService;
 import com.example.EventOrganizerBack.services.NotificationUserService;
+import com.example.EventOrganizerBack.services.UserEventService;
 import com.example.EventOrganizerBack.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,16 +33,19 @@ public class EventController {
     private final NotificationService notificationService;
     private final UserService userService;
     private final NotificationUserService notificationUserService;
+    private final UserEventService userEventService;
 
     @Autowired
     public EventController(EventService eventService,
                            NotificationService notificationService,
                            UserService userService,
-                           NotificationUserService notificationUserService) {
+                           NotificationUserService notificationUserService,
+                           UserEventService userEventService) {
         this.eventService = eventService;
         this.notificationService = notificationService;
         this.userService = userService;
         this.notificationUserService = notificationUserService;
+        this.userEventService = userEventService;
     }
 
     @PostMapping("/create")
@@ -83,6 +89,29 @@ public class EventController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error while creating event");
         }
+    }
+
+    @PostMapping("{eventId}/add-participant/{userId}")
+    public ResponseEntity<Object> addEventParticipant(@PathVariable Integer eventId, @PathVariable Integer userId) {
+        User user = userService.getUserById(userId);
+        Event event = eventService.getEventById(eventId);
+
+        //Check if user and event exist
+        if(user==null || event==null){
+            return ResponseEntity.badRequest().body("user or event does not exist");
+        }
+        
+        //Check if user is not already a participant
+        boolean userAlreadyParticipates = event.getUserEvents().stream().anyMatch(userEvent -> userEvent.getUser().equals(user));
+        if (userAlreadyParticipates){
+            return ResponseEntity.badRequest().body("user " + user.getId() + " already participates in event " + event.getId());
+        }
+
+        //Save and return
+        UserEvent userEvent = userEventService.createUserEvent(event, user);
+        return new ResponseEntity<>(userEvent, HttpStatus.CREATED);
+         
+
     }
 
     @PutMapping("/update/{id}")
