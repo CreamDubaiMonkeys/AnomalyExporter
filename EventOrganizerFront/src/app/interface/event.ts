@@ -1,3 +1,5 @@
+import { User } from "./user"
+
 export interface BaseEvent{
     capacity: number,
     date: string,
@@ -11,6 +13,7 @@ export interface BaseEvent{
 
 export interface Event extends BaseEvent {
     id: number,
+    creator: User,
     created_at: string,
     updated_at: string
 }
