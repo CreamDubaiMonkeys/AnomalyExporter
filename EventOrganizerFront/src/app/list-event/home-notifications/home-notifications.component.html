@@ -2,8 +2,8 @@
     <mat-list-item lines="4" role="listitem" *ngFor="let notification of notifications">
         <span  mat-line *ngIf="notification.type == 'INVITATION'">
             
-            <p><b>{{notification.emitter}}</b> has invited you to their event</p>
-            <p>taking place the <b>{{notification.date}}</b> at <b>{{notification.time}}</b></p>
+            <p><b>{{notification.emitter}}</b> vous a invité à son événement</p>
+            <p>se déroulant le <b>{{notification.date}}</b> invitation envoyée à <b>{{notification.time}}</b></p>
         </span>
         <h6 mat-line *ngIf="notification.type == 'reminder'">
             
